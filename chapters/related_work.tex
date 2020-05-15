@@ -49,11 +49,11 @@ designed and implemented quickly. That fact allows for some very data dependent 
 algorithms to be applied to new  problems, including urban perception estimation. Several different
 datasets have been proposed for this problem, most of them based on surveys over large amounts of urban images
 \cite{hidalgo_inequality, hidalgo_placepulse, quercia_aesthetic, liu_machine, santani}. The most important
-of them, all consisting of pairwise comparisons of street view images, are \textit{Place pulse 1.0} \cite{hidalgo_inequality}
+of them, all consisting of pairwise comparisons of street view images, are \textit{Place pulse 1.0} (PP 1) \cite{hidalgo_inequality}
 with measures of safety, class and uniqueness over images of 4 cities, \textit{Urban Gems} with measures of
-beauty, quietness and happiness over images of London and \textit{Place pulse 2.0} \cite{hidalgo_placepulse}, the largest dataset
+beauty, quietness and happiness over images of London and \textit{Place pulse 2.0} (PP 2) \cite{hidalgo_placepulse}, the largest dataset
 available, with measures of six different attributes over images of 56 different cities, the models proposed on this work are
-trained on this dataset. All of these were collected through public online surveys of large scale, where the users 
+trained on this dataset. All of these were collected through public online surveys of large scale, where the users
 are asked to choose the image most representative of an attribute of a pair, see figure \ref{fig:survey} for an example.
 
 \begin{figure}[ht]
@@ -64,7 +64,16 @@ are asked to choose the image most representative of an attribute of a pair, see
 	\end{center}
 \end{figure}
 
-
+Earlier attempts at using this data for training models tried to turn the problem into a classification problem
+by  ranking the images from the votes with manually engineered methods such as the one suggested on the
+place pulse 1.0 paper \cite{hidalgo_inequality} and use the rank to split the data in two halves with a different
+label, \citeA{tamara_judgments} use this approach to train SVM models on PP 1 using different types of visual features as input,
+including a deep neural network. On the PP 2 paper, the authors present the first end to end deep learning model for
+urban perception regression, which uses a typical transfer learning technique \cite{survey_transfer}, a
+Imagenet \cite{imagenet} pretrained  network for the base of the model, which is used as input
+for by two parallel modules, one for classification and one for regression. They train the architecture
+separately on the 6 different attributes of the dataset, the models learn to emulate human voting and
+to output a urban perception score (through the regression module) on the image for the correspondent attribute.
 
 \subsection{Mixed approaches.}
 
