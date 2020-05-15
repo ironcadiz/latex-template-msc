@@ -43,6 +43,29 @@ vulnerable to biases from the model designer.
 
 \subsection{Pure machine learning approaches.}
 
+Thanks to the massive adoption of web and mobile technologies such as google maps, new types of
+data are available in considerably large volumes, and new highly scalable ways of  generating data can be
+designed and implemented quickly. That fact allows for some very data dependent machine learning
+algorithms to be applied to new  problems, including urban perception estimation. Several different
+datasets have been proposed for this problem, most of them based on surveys over large amounts of urban images
+\cite{hidalgo_inequality, hidalgo_placepulse, quercia_aesthetic, liu_machine, santani}. The most important
+of them, all consisting of pairwise comparisons of street view images, are \textit{Place pulse 1.0} \cite{hidalgo_inequality}
+with measures of safety, class and uniqueness over images of 4 cities, \textit{Urban Gems} with measures of
+beauty, quietness and happiness over images of London and \textit{Place pulse 2.0} \cite{hidalgo_placepulse}, the largest dataset
+available, with measures of six different attributes over images of 56 different cities, the models proposed on this work are
+trained on this dataset. All of these were collected through public online surveys of large scale, where the users 
+are asked to choose the image most representative of an attribute of a pair, see figure \ref{fig:survey} for an example.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.5\textwidth]{./figures/placepulse.png}
+	\caption[Place pulse 2.0 survey]{Snapshot of the place pulse 2.0 survey. Extracted from \citeA{hidalgo_placepulse} }
+	\label{fig:survey}
+	\end{center}
+\end{figure}
+
+
+
 \subsection{Mixed approaches.}
 
 \section{ Explainability in deep learning.}
