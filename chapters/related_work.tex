@@ -4,8 +4,8 @@ for understanding or estimating urban perception, these methods are separated
 into 3 types: the classic approaches (all the methods not relying on
 massive amounts of data are grouped here), approaches based on machine learning and
 approaches consisting of machine learning models combined with other techniques.
-The different methods are explained and a brief analysis of advantages and disadvantages
-is provided for each of them. Section two summarizes the main aspects of the research
+The different methods are explained briefly and a short discussion is presented.
+Section two summarizes the main aspects of the research
 on explainability on deep learning, and describes some techniques that have been applied
 in urban perception or other domains that are relevant for this work.
 
@@ -74,7 +74,29 @@ Imagenet \cite{imagenet} pretrained  network for the base of the model, which is
 for by two parallel modules, one for classification and one for regression. They train the architecture
 separately on the 6 different attributes of the dataset, the models learn to emulate human voting and
 to output a urban perception score (through the regression module) on the image for the correspondent attribute.
+Other works \cite{porzi_predicting, santani} take similar approaches but pretrain models or use features based on
+the places dataset \cite{zhou_places}, which provides better performance according to their results.
+
+
+\citeA{zhang_measuring}, train models on PP 2 by combining a DCNN features and a SVM classifier, they use this model to
+obtain perception indicators of Beijing, they also use a semantic segmentation model \cite{cordts_cityscapes} on the images and used the results
+as input to a linear regression, interpreting the regression weights as an indication of importance of the different segmentation
+classes on perception. On a following work \cite{zhang_uncovering} they train one deep network to predict all 6 attributes of PP 2
+in one forward pass, they do this using an end-to-end architecture similar to \citeA{hidalgo_placepulse} but adding
+one output and loss component for each attribute.
+
+Is important to note that most of the literature so far is more focused on applying the models to new cities
+\cite{zhang_measuring, santani, costa_lisbon, rossetti} or generating new datasets with new attributes
+\cite{santani, zhang_uncovering}, than it is on improving model  design and performance.
+This is consistent with the fact that so far no good measures of performance for this problem have been defined,
+due to the fact that the datasets don't provide a measure of perception per se but a proxy through the survey votes.
+The objective of the models in the literature is to rank the images by the estimated perception of an attribute, but
+they measure  performance on the task of emulating the human votes, which doesn't necessarily correlate with the
+models capacity to generalize and rank well, especially in conflicted cases where even human voters
+would have difficulties \cite{zhang_measuring}.
 
 \subsection{Mixed approaches.}
+
+
 
 \section{ Explainability in deep learning.}
