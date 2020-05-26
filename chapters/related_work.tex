@@ -97,6 +97,30 @@ would have difficulties \cite{zhang_measuring}.
 
 \subsection{Mixed approaches.}
 
+With the intention of generating more or different insights, usually more explainability, some
+work in the literature consists of combinations of computer vision or machine learning methods
+with other techniques. In \citeA{rossetti} the authors use a combination of low and high level features
+of the images as input for a discrete choice model that calculates perception. They extract low level features
+with traditional computer vision methods like edges or blobs and the high level features with a pretrained
+neural network for semantic segmentation. The semantic segmentation features allow for a posthoc analysis of
+the results, the authors reach conclusions like "Images with more sidewalks were deemed to be
+safer, livelier and wealthier, but less beautiful on average" and they present a table with the significance
+of each of the segmentation classes in each of the six PP 2 attributes according to the discrete model parameters.
+On a similar line, as was mentioned earlier \citeA{zhang_measuring} in addition to their main method, use
+semantic segmentation features (they aggregate them by percentage of pixels on the image)
+as an input for multivariate linear regression allowing for similar conclusions to those of \citeA{rossetti}
+but using the beta coefficients (see figure \ref{fig:beta}).
+
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/zhang.png}
+	\caption[Beta Coefficients]{ Linear regression beta coefficients for most significant objects. Extracted from \citeA{zhang_measuring} }
+	\label{fig:beta}
+	\end{center}
+\end{figure}
+
+
 
 
 \section{ Explainability in deep learning.}
