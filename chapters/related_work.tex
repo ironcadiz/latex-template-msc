@@ -122,6 +122,12 @@ but using the beta coefficients (see figure \ref{fig:beta}).
 	\end{center}
 \end{figure}
 
+On another work \citeA{seresinhe_beauty} train a DCNN to calculate the beauty of outdoor images,
+using transfer learning from the Places dataset, but separately they use a places trained model to obtain text tags from
+the scenes such as 'Mountain' or 'Tower', and similarly to \citeA{zhang_measuring} they use a regression model
+(elastic net) to make conclusions about the significance of the concepts on the perception of beauty. The disadvantage
+of this approaches is that they give more insights of the results only at a general level, and therefore do not allow for
+conclusions on a per instance level, which is what this work intends to do.
 
 Authors of \citeA{costa_lisbon} do an agreement analysis for this type of datasets,
 they built their own dataset of pairwise comparisons for safety, but used it
@@ -130,7 +136,7 @@ They conclude that most clusters are due to lack of enough comparisons to do a g
 and that given enough votes all users converge to one generic profile. Is important to note
 that authors don't provide any social or demographic information of the 439 users that
 participated in the survey, and no other similar studies have been done so
-far so their conclusion hasn't been replicated .
+far so their conclusion hasn't been replicated.
 
 
 \section{ Explainability in deep learning.}
