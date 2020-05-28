@@ -91,9 +91,12 @@ Is important to note that most of the literature so far is more focused on apply
 This is consistent with the fact that so far no good measures of performance for this problem have been defined,
 due to the fact that the datasets don't provide a measure of perception per se but a proxy through the survey votes.
 The objective of the models in the literature is to rank the images by the estimated perception of an attribute, but
-they measure  performance on the task of emulating the human votes, which doesn't necessarily correlate with the
+they measure  performance using accuracy on classification of the human votes, which doesn't necessarily correlate with the
 models capacity to generalize and rank well, especially in conflicted cases where even human voters
-would have difficulties \cite{zhang_measuring}.
+would have difficulties \cite{zhang_measuring}. Despite the fact that models in the literature don't surpass 70\%
+classification  accuracy on  PP2, the actual ranking task seems to have correct results either by visual inspection,
+or by comparing with metrics from other domains such as crime rates or wealth indicators \cite{rossetti,zhang_measuring,tamara_judgments}.
+
 
 \subsection{Mixed approaches.}
 
@@ -111,7 +114,6 @@ semantic segmentation features (they aggregate them by percentage of pixels on t
 as an input for multivariate linear regression allowing for similar conclusions to those of \citeA{rossetti}
 but using the beta coefficients (see figure \ref{fig:beta}).
 
-
 \begin{figure}[ht]
 	\begin{center}
 	\includegraphics[width=1\textwidth]{./figures/zhang.png}
@@ -121,6 +123,14 @@ but using the beta coefficients (see figure \ref{fig:beta}).
 \end{figure}
 
 
+Authors of \citeA{costa_lisbon} do an agreement analysis for this type of datasets,
+they built their own dataset of pairwise comparisons for safety, but used it
+for  generating clusters of users based on the semantic segmentation of the images they voted for.
+They conclude that most clusters are due to lack of enough comparisons to do a good characterization
+and that given enough votes all users converge to one generic profile. Is important to note
+that authors don't provide any social or demographic information of the 439 users that
+participated in the survey, and no other similar studies have been done so
+far so their conclusion hasn't been replicated .
 
 
 \section{ Explainability in deep learning.}
