@@ -99,6 +99,7 @@ or by comparing with metrics from other domains such as crime rates or wealth in
 
 
 \subsection{Mixed approaches.}
+\label{section:mixed}
 
 With the intention of generating more or different insights, usually more explainability, some
 work in the literature consists of combinations of computer vision or machine learning methods
@@ -138,5 +139,40 @@ that authors don't provide any social or demographic information of the 439 user
 participated in the survey, and no other similar studies have been done so
 far so their conclusion hasn't been replicated.
 
+\section{ Explainability in machine learning.}
 
-\section{ Explainability in deep learning.}
+As was mentioned before, explainability has become a very active area of research
+in machine learning, this is due to the large increase in the usage of ML models
+for different day to day applications that affect the life's of thousands of people
+\cite{ras_explanation}. For example, in cases where model outputs are used for analytics or decision
+making, explainability can make the model both more trustworthy and informative.
+
+\citeA{adadi_xai} summarize the reasons for enhancing explainability in four points:
+
+\begin{enumerate}
+	\item Explain to justify: To fullfil the need for reasons of a particular ML
+	generated outcome.
+	\item Explain to control: To allow a better handling of model behavior.
+	\item Explain to improve: The additional understanding of model outputs is useful
+	to design improvements on the systems.
+	\item Explain to discover: As a model overcomes human performance in a task, if its
+	doing so in an explainable manner, then new knowledge for humans may be obtainable.
+
+\end{enumerate}
+
+Is also important to note that laws and regulations related to this topic may become norm
+in the future such as with the \citeA{gdpr}. According to it's articles
+13, 14 and 15, when personal data is collected for automated decision-making,
+the subject has the right to access, and the data controller is obliged to provide,
+“meaningful information about the logic involved  as well as the significance and the envisaged
+consequences of such processing for the data subject”, which will be very difficult to comply with,
+when working with something like a black box neural network.
+
+One of the two most common approaches to explainability in the literature are Post-hoc methods
+\cite{adadi_xai} which try to obtain insights about how the models work, after the process of
+inference over all the dataset is completed. The methods mentioned in section
+\ref{section:mixed} are examples of this approach. Other more complex methods found in the recent literature
+are based on analyzing model sensitivity to semantically meaningful concepts \cite{kim_tcav, shi_concept},
+which may be generated automatically as in the approach proposed by \citeA{kim_ace}. This techniques, although
+very promising, are still to recent and are not extensible to many domains.
+
