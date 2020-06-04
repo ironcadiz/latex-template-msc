@@ -172,7 +172,44 @@ One of the two most common approaches to explainability in the literature are Po
 \cite{adadi_xai} which try to obtain insights about how the models work, after the process of
 inference over all the dataset is completed. The methods mentioned in section
 \ref{section:mixed} are examples of this approach. Other more complex methods found in the recent literature
-are based on analyzing model sensitivity to semantically meaningful concepts \cite{kim_tcav, shi_concept},
-which may be generated automatically as in the approach proposed by \citeA{kim_ace}. This techniques, although
-very promising, are still to recent and are not extensible to many domains.
+are based on analyzing model sensitivity to semantically meaningful concepts on input \cite{kim_tcav, shi_concept},
+concepts that may be automatically mined from the data as in the approach proposed by \citeA{kim_ace}. This techniques, although
+very promising, are still too recent and are not extensible to many domains.
+
+The other approach, which is the one followed by this work, consists of taking advantage of the model
+design to improve interpretability. This can be done by either using existent features of the model
+or by introducing architectural changes that make them more explainable. A traditional  example of
+this approach are rule based models like  decision trees \cite{breiman_tree}. Due to the black box
+nature of deep neural networks this becomes a much more complex task for deep learning, and its an
+important area of research.
+
+Earlier solutions found in the literature consist of augmenting
+model input with semantic information, such as text, object bounding boxes or even knowledge bases
+\cite{dong_semantic, zhuo_video, li_knowledge}. This methods usually require additional supervision
+which restricts them to densely annotated datasets such as Visual Genome \cite{krishna_visualgenome},
+and the way the neural networks actually  use the additional information is not always clear.
+
+Other very common technique in the literature is the use of attention based models \cite{bahdanau_attention},
+which have layers that consist on using a part of the input (usually called query) to compute a set of weights
+for the rest of the input (usually called value). The attention weights are usually computed through
+a linear transformation and a softmax operation on the query, giving them the property of being a probability
+distribution over the value vector \cite{cordonnier_relationship}, which is used to increase or decrease,
+parts of the value vector and therefore the layer output. The most common attention model in the recent literature
+is the transformer \cite{vaswani_attention}, which has been widely adopted in both language and vision tasks
+\cite{devlin_bert, radford_gpt, bello_attention, li_visualbert, carion_object}. Attention models have the additional
+value that the weights can be visualized and used to interpret what the network is doing, providing
+explainable information about the model's decision process for each data instance.
+\citeA{clark_bertlook} analyse the attention outputs of the NLP model BERT and show how they correspond
+well to linguistic notions of syntax, \citeA{zhang_interpretable} create an explainable VQA model by adding
+supervised attention layers and visualizing their output as heatmaps over the input images
+(see figure \ref{fig:vqa}).
+
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.8\textwidth]{./figures/soto.png}
+	\caption[Attention on VQA]{Visualization of attention weights for the VQA problem. Extracted from \citeA{zhang_interpretable} }
+	\label{fig:vqa}
+	\end{center}
+\end{figure}
 
