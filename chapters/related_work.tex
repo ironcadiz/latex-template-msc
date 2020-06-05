@@ -194,16 +194,19 @@ which have layers that consist on using a part of the input (usually called quer
 for the rest of the input (usually called value). The attention weights are usually computed through
 a linear transformation and a softmax operation on the query, giving them the property of being a probability
 distribution over the value vector \cite{cordonnier_relationship}, which is used to increase or decrease,
-parts of the value vector and therefore the layer output. The most common attention model in the recent literature
-is the transformer \cite{vaswani_attention}, which has been widely adopted in both language and vision tasks
-\cite{devlin_bert, radford_gpt, bello_attention, li_visualbert, carion_object}. Attention models have the additional
-value that the weights can be visualized and used to interpret what the network is doing, providing
-explainable information about the model's decision process for each data instance.
-\citeA{clark_bertlook} analyse the attention outputs of the NLP model BERT and show how they correspond
-well to linguistic notions of syntax, \citeA{zhang_interpretable} create an explainable VQA model by adding
-supervised attention layers and visualizing their output as heatmaps over the input images
-(see figure \ref{fig:vqa}).
+parts of the value vector and therefore the layer output. A particular case of attention is
+self-attention, which means that the same vector is used as both query and input. A common attention architecture
+in the recent literature is the transformer \cite{vaswani_attention}, which has been widely adopted in both
+language and vision tasks \cite{devlin_bert, radford_gpt, bello_attention, li_visualbert, carion_object}.
 
+Attention models have the additional value that the weights can be visualized and used to interpret what the network is doing, providing
+explainable information about the model's decision process for each data instance.
+\citeA{clark_bertlook} analyse the attention outputs of the NLP transformer model BERT and show how they correspond
+well to linguistic notions of syntax, \citeA{zhang_interpretable} create an explainable VQA model by adding
+supervised self-attention layers and visualizing their output as heatmaps over the input images
+(see figure \ref{fig:vqa}). \citeA{cordonnier_relationship} present a theoretical  relationship between
+between self attention and convolutional layers, and as part of their work they provide an interactive visualization
+of the attention weights \footnote{Available at \url{epfml.github.io/attention-cnn/}}.
 
 \begin{figure}[ht]
 	\begin{center}
