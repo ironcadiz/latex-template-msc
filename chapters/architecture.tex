@@ -28,7 +28,7 @@ making it usable as a feature map of the image. See figure \ref{fig:segmentation
 We base our models on the PSPNet architecture \cite{pspnet}, since it is one of the highest performing models
 available in the literature. It's design its based on a ResNet50 and a pyramid pooling module, which consists on
 parallel poolings and convolutions at different scales, that are then concatenated and used to generate the output with a
-final convolution and a softmax layer.
+final convolution.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -46,17 +46,23 @@ final convolution and a softmax layer.
 	\end{center}
 \end{figure}
 
-
 We train PspNet on the CityScapes dataset \cite{cordts_cityscapes}, since its urban images taken from a car have
 considerable similarity to street view images, and its classes have proven informative for the urban perception problem
-in previous research \cite{rossetti,zhang_measuring}.  After this process we keep the network weights fixed
-and use the output as a features for subsequent layers.
+in previous research \cite{rossetti,zhang_measuring}. After this process we keep the network weights fixed
+and use the output as features for subsequent layers. The segmentation output  is a tensor $S$, $S \in \mathbb{R}^{C\times h \times w}$, with $C$
+the number of different classes. We experiment with using the features directly or applying a softmax operation.
+
+For the calculation of the ranking score, we apply a linear transformation to every pixel distribution, flattening the output to
+$\mathbb{R}^{h \times w}$  and then an MLP with one hidden layer and ReLU activation. The final linear layer
+of the MLP generates a single scalar value representing the perception score. For training on placepulse
+2 forward passes on the network are required for each data instance (one for each image) and both scores are used
+for calculation of the loss. See section \ref{section:loss} for  details.
 
 \subsection{Self attention.}
 
 \subsection{Segmentation as attention query.}
 
-\section{Loss function}
+\section{Loss function} \label{section:loss}
 
 \section{Baselines}
 
