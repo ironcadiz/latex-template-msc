@@ -63,9 +63,40 @@ for calculation of the loss. See section \ref{section:loss} for  details.
 \subsection{Segmentation as attention query.}
 
 \section{Loss function} \label{section:loss}
+The loss function for this task must account for the pairwise structure of the dataset,
+and should represent the cost of breaking restrictions given by equations
+\ref{eq:constraints} and \ref{eq:constraints_ties}. For \ref{eq:constraints} we use
+a hinge loss similar to the one proposed by \citeA{hidalgo_placepulse}:
+
+\begin{equation}
+	L_r(x_i,x_j,y | \Theta) = \max(0, -y(f_\Theta(x_i) - f_\Theta(x_j)) + m_r)
+	\label{eq:r_loss}
+\end{equation}
+
+Where $f_\Theta$ and $\Theta$  represent the network and its parameters respectively, and $m_r$
+is an hyperparameter. This loss component makes it so that the model learns to assign a higher
+score to the image winner of the vote. Based on the work by \citeA{doughty_loss} we also add a second component so that tied votes can
+be used for training. According with equation \ref{eq:constraints_ties} we define:
+
+
+\begin{equation}
+	L_t(x_i,x_j | \Theta) = \max(0, |f_\Theta(x_i) - f_\Theta(x_j)| - m_t)
+	\label{eq:t_loss}
+\end{equation}
+
+Where $m_t$ is also an hyperparameter. Finally, the complete loss function is defined as:
+
+\begin{equation}
+	L(x_i,x_j,y | \Theta) =\left\{\begin{matrix}
+		L_r(x_i,x_j,y)&\text{ if } y \in \{-1,1\} \\
+		L_t(x_i,x_j)&\text{ if } y=0
+	\end{matrix}\right.
+\end{equation}
+
+In practice we take the mean loss over the batch examples and we set $m_r=m_t=1$
 
 \section{Baselines}
 
 \subsection{ResNet50 + MLP}
 
-\subsection{ResNet50 + Attention layers + MLP}
+\subsection{ResNet50 + Attention layer + MLP}
