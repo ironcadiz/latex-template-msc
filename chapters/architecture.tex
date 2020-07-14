@@ -53,7 +53,7 @@ final convolution.
 We train PspNet on the CityScapes dataset \cite{cordts_cityscapes}, since its urban images taken from a car have
 considerable similarity to street view images, and its classes have proven informative for the urban perception problem
 in previous research \cite{rossetti,zhang_measuring}. After this process we keep the network weights fixed
-and use the output as features for subsequent layers. The segmentation output  is a tensor $S$, $S \in \mathbb{R}^{C\times h \times w}$, with $C$
+and use the output as features for subsequent layers. The segmentation output  is a tensor $S$, $S \in \mathbb{R}^{h\times w \times C}$, with $C$
 the number of different classes. We experiment with using the features directly or applying a softmax operation.
 
 For the calculation of the ranking score, we apply a linear transformation to every pixel distribution, flattening the output to
@@ -69,6 +69,33 @@ of the MLP generates a single scalar value representing the perception score.
 \end{figure}
 
 \subsection{Self attention.}
+With the intention of improving performance and explainability of the model, we process
+the segmentation output with self attention mechanisms instead of a traditional MLP as
+they have been proven to provide both benefits by previous research \cite{vaswani_attention, wiegreffe_attention, cordonnier_relationship}.
+
+For our model we use a simplified version of the multihead attention mechanism
+proposed by \citeA{vaswani_attention}, that consists of the same operations but
+without splitting the input in several heads. We do this because using multiple heads
+reduces the interpretability of the attention outputs, since different heads may output
+inconsistent weights, as is mentioned in \citeA{clark_bertlook} and \citeA{li_disagreement} and
+also verified on this task by our own experiments.
+
+The attention mechanisms receives three matrixes as input: the query $Q$, the key $K$ and the value
+$V$. It calculates a matrix of attention weights over $V$ based on $Q$ and $K$ and the final output
+is given by the product between $V$ and the weights. A linear transformation is defined
+for each of the inputs with weights $W_Q, W_K, W_V$ respectively, and another transformation $W$
+is applied to the final output. Formally the attention layer can be defined as:
+\begin{align}
+	\text{Attention}(Q,K,V) &= \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V \\
+	\text{AttentionLayer}(Q,K,V) &=  \text{Attention}(QW_Q,KW_K,VW_V)\cdot W
+\end{align}
+Where $d_k$ is the embedding size of the key. For the particular case of self attention,
+the same input is used as query, key and value, so for our case we make $Q=K=V=S'$ with
+$S' \in \mathbb{R}^{(hw) \times C}$ and equal to the segmentation output flattened to one
+spatial dimension.
+
+
+
 
 \subsection{Segmentation as attention query.}
 
@@ -87,7 +114,6 @@ Where $f_\Theta$ and $\Theta$  represent the network and its parameters respecti
 is an hyperparameter. This loss component makes it so that the model learns to assign a higher
 score to the image winner of the vote. Based on the work by \citeA{doughty_loss} we also add a second component so that tied votes can
 be used for training. According with equation \ref{eq:constraints_ties} we define:
-
 
 \begin{equation}
 	L_t(x_i,x_j | \Theta) = \max(0, |f_\Theta(x_i) - f_\Theta(x_j)| - m_t)
