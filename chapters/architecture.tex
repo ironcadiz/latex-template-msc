@@ -10,7 +10,11 @@ while maintaining performance as much as possible. With that in mind, we combine
 state of the art techniques from the deep learning literature, semantic segmentation
 and attention mechanisms to design three novel architectures that present a significant
 improvement in explainability over traditional blackbox CNNs. We describe these architectures
-in the following sub sections, ordered by model complexity.
+in the following sub sections, ordered by model complexity. Is important to note that
+for learning to rank on placepulse
+2 forward passes of ranking the network are required for each data instance (one for each image) and both scores are used
+for calculation of the loss. See section \ref{section:loss} for  details.
+
 
 \subsection{Segmentation as a feature extractor.}
 The traditional deep learning approach in computer vision, consists of using a pretrained
@@ -54,9 +58,15 @@ the number of different classes. We experiment with using the features directly 
 
 For the calculation of the ranking score, we apply a linear transformation to every pixel distribution, flattening the output to
 $\mathbb{R}^{h \times w}$  and then an MLP with one hidden layer and ReLU activation. The final linear layer
-of the MLP generates a single scalar value representing the perception score. For training on placepulse
-2 forward passes on the network are required for each data instance (one for each image) and both scores are used
-for calculation of the loss. See section \ref{section:loss} for  details.
+of the MLP generates a single scalar value representing the perception score.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.9\textwidth]{./figures/segrank_1.png}
+	\caption[First model architecture]{First model architecture}
+	\label{fig:segrank_1}
+	\end{center}
+\end{figure}
 
 \subsection{Self attention.}
 
