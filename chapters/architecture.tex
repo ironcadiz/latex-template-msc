@@ -94,8 +94,27 @@ the same input is used as query, key and value, so for our case we make $Q=K=V=S
 $S' \in \mathbb{R}^{(hw) \times C}$ and equal to the segmentation output flattened to one
 spatial dimension.
 
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.3\textwidth]{./figures/attention.png}
+	\caption[Attention Mechanism]{Attention layer operations. Adapted from \citeA{vaswani_attention}}
+	\label{fig:segrank_1}
+	\end{center}
+\end{figure}
 
+Similarly to the previous model we apply a linear layer to calculate the ranking score from the attention output.
+We only use one layer instead of two in this model because the attention mechanism already has a large amount of parameters and a
+linear transformation of its own.
 
+In parallel the attention weights are also outputted by the model and are used for visualization.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/self_attn.png}
+	\caption[Self Attention network]{Segmentation and self attention network.}
+	\label{fig:segrank_1}
+	\end{center}
+\end{figure}
 
 \subsection{Segmentation as attention query.}
 
