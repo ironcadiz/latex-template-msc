@@ -76,7 +76,7 @@ performance dropped is likely to happen.
 	\end{center}
 \end{figure}
 
-\subsection{Self attention.}
+\subsection{Self attention.}\label{section:self-attn}
 With the intention of improving performance and explainability of the model, we process
 the segmentation output with self attention mechanisms instead of a traditional MLP as
 they have been proven to provide both benefits by previous research \cite{vaswani_attention, wiegreffe_attention, cordonnier_relationship}.
@@ -174,3 +174,12 @@ Unlike its segmentation based sibling, dropout and L2 regularization are necessa
 this model, due to the significantly larger amount of trainable parameters that come from finetuning the CNN.
 
 \subsection{ResNet50 + Self Attention layer + MLP}
+
+A baseline on explainability is also important, since improving it is the key contribution
+of this work. For that we use a similar architecture to attention based explainability
+models from the literature \cite{zhang_interpretable, cordonnier_relationship, bello_attention}, consisting on
+combining a finetuned CNN with self attention layers.
+
+We take the output of ResNet50's \textit{conv\_5c} layers and give it to the attention layer
+defined in section \ref{section:self-attn} and then to a final linear transformation for calculation
+in the same way as our self attention model.
