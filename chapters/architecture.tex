@@ -60,6 +60,14 @@ For the calculation of the ranking score, we apply a linear transformation to ev
 $\mathbb{R}^{h \times w}$  and then an MLP with one hidden layer and ReLU activation. The final linear layer
 of the MLP generates a single scalar value representing the perception score.
 
+Is important to note that the features given by  segmentation are  of considerable less dimension
+than traditional ResNet features making them  significantly less expressive. For example, given a standard $244 \times 244$ image,
+ResNet50's \textit{conv\_5c} layer outputs a $2,048 \times 8 \times 8 = 131,072$ sized
+tensor while PSPNet outputs a $19 \times 31 \times 31 = 18,259$ sized tensor. Adding to that,
+since traditional CNN based approaches allow for finetuning, the amount of trainable parameters
+is also much smaller for this model than traditional models, and therefore a significant
+performance dropped is likely to happen.
+
 \begin{figure}[ht]
 	\begin{center}
 	\includegraphics[width=0.9\textwidth]{./figures/segrank_1.png}
@@ -151,7 +159,18 @@ Where $m_t$ is also an hyperparameter. Finally, the complete loss function is de
 In practice we take the mean loss over the batch examples and we set $m_r=m_t=1$
 
 \section{Baselines}
+With the purpose of making and ablation study, we also train two baseline models
+bases on the architecture proposed by \citeA{hidalgo_placepulse}, designed for
+measuring the effect of the segmentation and attention mechanisms in both performance
+and explainability of the models. We base these models on the ResNet50 CNN \cite{he_resnet},
+as is the defacto approach for computer vision problems. We abstain from using larger
+versions of ResNet due to significant overfitting issues.
 
 \subsection{ResNet50 + MLP}
+The first baseline consists of a standard finetuned ResNet50 with a two layer MLP. This
+model doesn't provide any sort of out of the box explainability and therefore is useful
+to measure how segmentation affects performance.
+Unlike its segmentation based sibling, dropout and L2 regularization are necessary for training
+this model, due to the significantly larger amount of trainable parameters that come from finetuning the CNN.
 
-\subsection{ResNet50 + Attention layer + MLP}
+\subsection{ResNet50 + Self Attention layer + MLP}
