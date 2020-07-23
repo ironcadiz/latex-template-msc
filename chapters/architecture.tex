@@ -183,3 +183,11 @@ combining a finetuned CNN with self attention layers.
 We take the output of ResNet50's \textit{conv\_5c} layers and give it to the attention layer
 defined in section \ref{section:self-attn} and then to a final linear transformation for calculation
 in the same way as our self attention model.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/attn_baseline.png}
+	\caption[ResNet + SelfAttention]{ResNet and self attention network. ResNet diagram extracted from \cite{he_resnet}.}
+	\label{fig:attn_resnet}
+	\end{center}
+\end{figure}
