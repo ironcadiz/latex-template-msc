@@ -66,7 +66,7 @@ ResNet50's \textit{conv\_5c} layer outputs a $2,048 \times 8 \times 8 = 131,072$
 tensor while PSPNet outputs a $19 \times 31 \times 31 = 18,259$ sized tensor. Adding to that,
 since traditional CNN based approaches allow for finetuning, the amount of trainable parameters
 is also much smaller for this model than traditional models, and therefore a significant
-performance dropped is likely to happen.
+performance drop is likely to happen.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -81,12 +81,12 @@ With the intention of improving performance and explainability of the model, we 
 the segmentation output with self attention mechanisms instead of a traditional MLP as
 they have been proven to provide both benefits by previous research \cite{vaswani_attention, wiegreffe_attention, cordonnier_relationship}.
 
-For our model we use a simplified version of the multihead attention mechanism
-proposed by \citeA{vaswani_attention}, that consists of the same operations but
-without splitting the input in several heads. We do this because using multiple heads
-reduces the interpretability of the attention outputs, since different heads may output
-inconsistent weights, as is mentioned in \citeA{clark_bertlook} and \citeA{li_disagreement} and
-also verified on this task by our own experiments.
+For our model we use the scaled dot product attention mechanism
+proposed by \citeA{vaswani_attention}. We abstain from using the full multi head attention
+mechanism  that consists of the same operations but splitting the input in several "heads".
+We do this because using multiple heads adds complexity to the interpretation of the attention outputs,
+since different heads may output inconsistent weights, as is mentioned in \citeA{clark_bertlook}
+and \citeA{li_disagreement} and also verified on this task by our own experiments.
 
 The attention mechanisms receives three matrixes as input: the query $Q$, the key $K$ and the value
 $V$. It calculates a matrix of attention weights over $V$ based on $Q$ and $K$ and the final output
@@ -181,8 +181,7 @@ models from the literature \cite{zhang_interpretable, cordonnier_relationship, b
 combining a finetuned CNN with self attention layers.
 
 We take the output of ResNet50's \textit{conv\_5c} layers and give it to the attention layer
-defined in section \ref{section:self-attn} and then to a final linear transformation for calculation
-in the same way as our self attention model.
+defined in section \ref{section:self-attn} and then to a two layer MLP for calculation of the final score.
 
 \begin{figure}[ht]
 	\begin{center}
