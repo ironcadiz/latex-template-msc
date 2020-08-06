@@ -1,2 +1,40 @@
-\section{Implementation}
-\section{Training}
+This chapter shows the practical details of the implemented models and their
+respective training process.
+
+All of our models are implemented using the Pytorch library
+\cite{paszke_pytorch} version 1.2.0.
+We use the implementation and pretrained weights of ResNet
+available on the Torchvision library \cite{marcel_torchvision}.
+We train our own PSPNet based on the implementation by \citeA{huang_psp}.
+All models are trained using a single 12 Gb Nvidia Geforce-GTX 1080 Ti GPU except
+for the mixed model, which is trained on a 24 Gb Nvidia Titan RTX.
+
+For training we make a 75\%/25\% train/validation splits of the dataset for
+each attribute. We keep the splits fixed for all models, so they all see
+and are evaluated on the same data. All models are trained for 40 epochs
+and we keep the model with the best validation accuracy on epoch end.
+
+\begin{table}[H]
+    \begin{center}
+        \caption[Hyper parameters]{Hyper parameters and configurations for each model.}
+        \begin{tabular}{|l|r|r|r|r|r|}
+            \hline
+            \textbf{Parameter/Model} & \textbf{ResNet50} & \textbf{ResnetAttn} & \textbf{Seg}    & \textbf{Seg + Attn} & \textbf{Seg Att} \\ \hline
+            Batch Size     & 32                           & 32                                & 32                         & 32                                   & 32                           \\
+            Learning Rate  & $10^{-4}$                    & $10^{-4}$                         & $10^{-4}$                  & $10^{-4}$                            & $10^{-4}$   \\
+            Opt. Algorithm & SGD                          & SGD                               & Adam                       & Adam                                 & Adam                         \\
+            Finetuning     & Yes                          & Yes                               & No                         & No                                   & Yes                          \\
+            Dropout        & 0.3                          & 0.3                               & 0                          & 0                                    & 0.1                          \\
+            Weight Decay   & $10^{-5}$                    & $10^{-5}$                         & 0                          & $10^{-5}$                            & $10^{-5}$    \\
+            LR Decay       & No                           & No                                & Yes                        & Yes                                  & No           \\
+            \hline
+        \end{tabular}
+        \label{tab:hyperparams}
+    \end{center}
+\end{table}
+
+Baselines are trained with SGD with a momentum of $0.9$ \cite{rumelhart_backprop}
+as it provided better results empirically. For segmentation based models we train with
+Adam \cite{kingma_adam} and we set $\epsilon$, $\beta_1$ and $\beta_2$ to $10^{-9}$, $0.9$ and $0.98$ respectively.
+Weight decay and dropout are used for all models that finetune ResNet weights.
+See table \ref{tab:hyperparams} for details on the training hyperparameters.
