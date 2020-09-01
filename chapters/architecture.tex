@@ -94,7 +94,9 @@ is given by the product between $V$ and the weights. A linear transformation is 
 for each of the inputs with weights $W_Q, W_K, W_V$ respectively, and another transformation $W$
 is applied to the final output. Formally the attention layer can be defined as:
 \begin{align}
+	\label{eq:attention}
 	\text{Attention}(Q,K,V) &= \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V \\
+	\label{eq:attention_layer}
 	\text{AttentionLayer}(Q,K,V) &=  \text{Attention}(QW_Q,KW_K,VW_V)\cdot W
 \end{align}
 Where $d_k$ is the embedding size of the key. For the particular case of self attention,
@@ -128,13 +130,43 @@ In parallel the attention weights are also outputted by the model and are used f
 	\begin{center}
 	\includegraphics[width=1\textwidth]{./figures/self_attn_vis.png}
 	\caption[Self Attention Model output]{Example segmentation and self attention weights for all six attributes.}
-	\label{fig:segrank_1}
+	\label{fig:segrank_attention}
 	\end{center}
 \end{figure}
 
+As it can be seen on figure \ref{fig:segrank_attention}, the attention weights keep the object shapes,
+allowing for a clear interpretation of which objects are significant to the output.
+
+\subsection{Segmentation as attention key.}
+As was mentioned before, segmentation based features are considerably less expressive than
+traditional deep CNN features and can't be finetuned, generating an important trade off between explainability and model performance.
+As a solution to that problem, we propose a mixed approach, that weights in both the image segmentation
+and the CNN features, in order to achieve both good performance and interpretability. To do that,
+we take advantage of the multiple inputs in the scaled dot product attention mechanism, the methods consists
+of using the segmentation as key, and the ResNet features as both query and value (see equations \ref{eq:attention} and \ref{eq:attention_layer} ).
+
+We do this because using the segmentation as key induces the attention weights to maintain a similar shape as the segmentation objects,
+maintaining interpretability. To understand why this happens, see the $QK^t$ product on equation \ref{eq:attention} that generates the
+weight matrix, a single element of the matrix (or a single attention weight) is given by:
+\begin{align}
+	a_{ij} = \sum_{l=1}^d q_{il}k_{lj}
+\end{align}
+
+With $a_{ij}$ being the weight of feature $j$ on output feature $i$. Setting up $K=S'$  and $Q=F'$, with $S'$ and $F'$ the flattened segmentation and ResNet features
+respectively:
+\begin{align}
+	a_{ij} = \sum_{l=1}^d f_{il}s_{lj}
+\end{align}
+
+Meaning that the weight of feature $j$ on output feature $i$ depends on which object is $j$, resulting in an attention weight matrix
+that keeps the  interpretability of the segmentation objects independently of the convolutional features.
+
+In practice, $K$ and $V$ must have the same spatial dimension for equation \ref{eq:attention} to be valid,
+we solve this problem by using layer \textit{conv\_4f} of ResNet50 instead of \textit{conv\_5c}  , since it has a
+larger spatial dimensionality, and we add a transposed convolution layer \cite{noh_deconv} to do the final upsampling
+required to match the segmentation output dimension.
 
 
-\subsection{Segmentation as attention query.}
 
 \section{Loss function} \label{section:loss}
 The loss function for this task must account for the pairwise structure of the dataset,
