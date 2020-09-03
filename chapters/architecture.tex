@@ -1,8 +1,8 @@
 This chapter presents a detailed explanation of the neural network models proposed in this work and
 the correspondent baselines used for comparison. In section one the architectures of
-the main networks are shown. In section 2 the loss functions used are described. Finally,
-section 3 shows the baselines models used for the ablation study of both performance and
-explainability.
+the main networks are shown. In section 2 we detailed additional components used on the models and training.
+Finally, section 3 shows the baselines models
+used for the ablation study of both performance and explainability.
 
 \section{Network architectures}
 As was mentioned before, the main principle followed for model design is to enhance explainability
@@ -174,7 +174,8 @@ we solve this problem by using layer \textit{conv\_4f} of ResNet50 instead of \t
 larger spatial dimensionality, and we add a transposed convolution layer \cite{noh_deconv} to do the final upsampling
 required to match the segmentation output dimension.
 
-\section{Loss function} \label{section:loss}
+\section{Additional components}
+\subsection{Loss function} \label{section:loss}
 The loss function for this task must account for the pairwise structure of the dataset,
 and should represent the cost of breaking restrictions given by equations
 \ref{eq:constraints} and \ref{eq:constraints_ties}. For \ref{eq:constraints} we use
@@ -205,6 +206,25 @@ Where $m_t$ is also an hyperparameter. Finally, the complete loss function is de
 \end{equation}
 
 In practice we take the mean loss over the batch examples and we set $m_r=m_t=1$
+
+\subsection{Semantic Dropout}
+It's important to note, that the semantic segmentation model trained on cityscapes,
+presents an unavoidable drop in segmentation performance when applied on placepulse
+due to domain shift. Errors in the segmentation can produce  significant problems
+in the final perception quantification and can also cause confusing
+attention heatmaps due to errors in the object edges.
+
+In practice we identified a tendency for the models to have attention
+weights highly biased towards specific segmentation classes, which is highly undesirable
+both for explainability and model generalization.
+
+We solve these problems by implementing what we call Semantic Dropout, similar to traditional Dropout \cite{srivastava_dropout},
+but instead of dropping a single neuron with probability $p$, Semantic Dropout drops the
+probabilities of an entire segmentation class, inducing artificial errors
+during training and preventing the network from becoming too sensitive to
+segmentation errors while also reducing the bias in attention weights. Mathematically
+this technique is equivalent to the spatial dropout proposed in \citeA{tompson_efficient},
+but applied to segmentation probabilities instead to convolutional kernels.
 
 \section{Baselines}
 With the purpose of making and ablation study, we also train two baseline models
