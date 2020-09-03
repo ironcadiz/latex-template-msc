@@ -161,12 +161,18 @@ respectively:
 Meaning that the weight of feature $j$ on output feature $i$ depends on which object is $j$, resulting in an attention weight matrix
 that keeps the  interpretability of the segmentation objects independently of the convolutional features.
 
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/segattn.png}
+	\caption[Segmentation as key network]{Segmentation as key network.}
+	\label{fig:segrank_1}
+	\end{center}
+\end{figure}
+
 In practice, $K$ and $V$ must have the same spatial dimension for equation \ref{eq:attention} to be valid,
 we solve this problem by using layer \textit{conv\_4f} of ResNet50 instead of \textit{conv\_5c}  , since it has a
 larger spatial dimensionality, and we add a transposed convolution layer \cite{noh_deconv} to do the final upsampling
 required to match the segmentation output dimension.
-
-
 
 \section{Loss function} \label{section:loss}
 The loss function for this task must account for the pairwise structure of the dataset,
