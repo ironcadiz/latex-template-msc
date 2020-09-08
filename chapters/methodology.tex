@@ -25,7 +25,8 @@ and we keep the model with the best validation accuracy on epoch end.
             Opt. Algorithm & SGD                          & SGD                               & Adam                       & Adam                                 & Adam                         \\
             Finetuning     & Yes                          & Yes                               & No                         & No                                   & Yes                          \\
             Dropout        & 0.3                          & 0.3                               & 0                          & 0                                    & 0.1                          \\
-            Weight Decay   & $10^{-5}$                    & $10^{-5}$                         & 0                          & 0                            & $10^{-5}$    \\
+            Semantic Dropout        & N/A                          & N/A                               & 0                          & 0.1                                    & 0.1                          \\
+            Weight Decay   & $10^{-5}$                    & $10^{-5}$                         & 0                          & 0                            & 0    \\
             \hline
         \end{tabular}
         \label{tab:hyperparams}
@@ -35,5 +36,7 @@ and we keep the model with the best validation accuracy on epoch end.
 Baselines are trained with SGD with a momentum of $0.9$ \cite{rumelhart_backprop}
 as it provided better results empirically. For segmentation based models we train with
 Adam \cite{kingma_adam} and we set $\epsilon$, $\beta_1$ and $\beta_2$ to $10^{-9}$, $0.9$ and $0.98$ respectively.
-Weight decay and dropout are used for all models that finetune ResNet weights.
+We use semantic dropout on both models that have segmentation and attention, and add
+an equivalent regular dropout layer to the ResNetAttn Baseline for fair comparison.
+Weight decay and traditional dropout are used for all baseline models that finetune ResNet weights.
 See table \ref{tab:hyperparams} for details on the training hyperparameters.
