@@ -16,7 +16,7 @@ for learning to rank on placepulse
 for calculation of the loss. See section \ref{section:loss} for  details.
 
 
-\subsection{Segmentation as a feature extractor.}
+\subsection{SegRank base.}
 The traditional deep learning approach in computer vision, consists of using a pretrained
 CNN \cite{lecun_mnist}, on the Imagenet dataset \cite{imagenet}, such as the ResNet \cite{he_resnet},
 usually called the feature extractor, and then stacking a custom set of layers over its output features. Leaving the CNN weights
@@ -76,7 +76,7 @@ performance drop is likely to happen.
 	\end{center}
 \end{figure}
 
-\subsection{Self attention.}\label{section:self-attn}
+\subsection{SelfSegRank}\label{section:self-attn}
 With the intention of improving performance and explainability of the model, we process
 the segmentation output with self attention mechanisms instead of a traditional MLP as
 they have been proven to provide both benefits by previous research \cite{vaswani_attention, wiegreffe_attention, cordonnier_relationship}.
@@ -137,7 +137,7 @@ In parallel the attention weights are also outputted by the model and are used f
 As it can be seen on figure \ref{fig:segrank_attention}, the attention weights keep the object shapes,
 allowing for a clear interpretation of which objects are significant to the output.
 
-\subsection{Segmentation as attention key.}
+\subsection{AttentionSegRank}
 As was mentioned before, segmentation based features are considerably less expressive than
 traditional deep CNN features and can't be finetuned, generating an important trade off between explainability and model performance.
 As a solution to that problem, we propose a mixed approach, that weights in both the image segmentation

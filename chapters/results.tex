@@ -1,3 +1,90 @@
-\section{Training and model performance}
+This chapter shows the main results obtained. On section one we present the quantitative
+performance and training results. Section 2 explains how the different visualizations
+are generated, including examples for all the models.
 
-\section{Segmentation and attention visualization}
+\section{Quantitative results}
+
+\subsection{Model performance}
+
+Even though the objective of this research is to learn a ranking (or regression) to
+quantify the urban perception, exact labels for this are not available, so we have to measure
+model performance based on the Place Pulse votes, which as was mentioned on section
+\ref{sec:problem_def}, has considerable issues. We use as performance measure the
+equivalent to classification accuracy, considering which image won the vote as the target label.
+In other words, we evaluate the percentage of restrictions (see \ref{eq:constraints})
+that are satisfied by the model. We do this separately for each attribute in it's corresponding
+validation set and the final accuracy value for each model is calculated as the mean accuracy through
+all attributes.
+
+Both ResNet based baseline models achieve an accuracy of \texttildelow 66\% and
+as it was expected, replacing the more expressive CNN features for semantic segmentation,
+caused a significant performance drop, falling to 60.62\% for SegRank and 61.43\% %TODO: update that value
+for SelfSegRank. %TODO: AttnSegRank.
+See table BLABLA, for the exact accuracy values.
+
+\subsection{Training behavior}
+
+Models trained on the place pulse dataset are very prone to overfitting, we believe this is due to it
+having a very large amount of votes in comparison to the amount of available images, and because the task
+is very hard to generalize given the high amount of noise that the dataset has from how it was collected.
+This can be seen clearly on figures \ref{fig:resnet_graph} and \ref{fig:resnet_attn_graph}. Both
+baselines models present considerably overfitting, showing accuracy differences between seen and unseen data
+of up to 25\%, and ceasing to improve on the validation set after one or two training epochs.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/resnet50_graph.png}
+	\caption[ResNet Training curves]{
+        ResNet50 baseline accuracy vs epoch learning curves on training (a) and validation (b).
+        }
+	\label{fig:resnet_graph}
+	\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/resnet_attn_graph.png}
+	\caption[ResNetAttn Training curves]{
+        ResNetAttn baseline accuracy vs epoch learning curves on training (a) and validation (b).
+        }
+	\label{fig:resnet_attn_graph}
+	\end{center}
+\end{figure}
+
+Replacing the CNN features for semantic segmentation generates a considerable change in training
+behavior, with the reduced expressiveness of the segmentation acting as a very strong regularizer,
+overfitting completely disappears, which translates to a drop of around 20\% to 30\% accuracy in training,
+but of only 6\% on validation. The basic SegRank arquitecture still reaches its best validation
+performance after one or two epochs, but adding the self attention layer makes the convergence
+considerably slower allowing the model to keep improving for longer periods and reach a higher
+validation accuracy.
+
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/segrank_graph.png}
+	\caption[SegRank Training curves]{
+        SegRank accuracy vs epoch learning curves on training (a) and validation (b).
+        }
+	\label{fig:segrank_graph}
+	\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/selfsegrank_graph.png}
+	\caption[SelfSegRank Training curves]{
+        SelfSegRank accuracy vs epoch learning curves on training (a) and validation (b).
+        }
+	\label{fig:selfsegrank_graph}
+	\end{center}
+\end{figure}
+
+
+\section{Visualization results}
+
+- Segmentation colors
+
+- Generation of visualizations
+
+- Baseline vs segrank vs segattn
