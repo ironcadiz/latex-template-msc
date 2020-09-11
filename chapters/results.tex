@@ -54,10 +54,10 @@ of up to 25\%, and ceasing to improve on the validation set after one or two tra
 Replacing the CNN features for semantic segmentation generates a considerable change in training
 behavior, with the reduced expressiveness of the segmentation acting as a very strong regularizer,
 overfitting completely disappears, which translates to a drop of around 20\% to 30\% accuracy in training,
-but of only 6\% on validation. The basic SegRank arquitecture still reaches its best validation
-performance after one or two epochs, but adding the self attention layer makes the convergence
-considerably slower allowing the model to keep improving for longer periods and reach a higher
-validation accuracy.
+but of only 6\% on validation.
+
+The basic SegRank arquitecture still reaches convergence after one or two epochs.
+Adding the self attention layer makes it slightly slower allowing the model reach a higher validation accuracy.
 
 
 \begin{figure}[ht]
@@ -79,6 +79,11 @@ validation accuracy.
 	\label{fig:selfsegrank_graph}
 	\end{center}
 \end{figure}
+
+As it can be seen on the results of all models, the learning process is consistent through out
+the different attributes. The accuracy of the different attributes is also consistent across the
+different models, withh boring and beautiful being the hardest and easiest tasks to learn respectively
+on all models.
 
 
 \section{Visualization results}
