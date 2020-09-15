@@ -1,6 +1,6 @@
-This chapter shows the practical details of the implemented models and their
-respective training process.
+This chapter shows the practical details of implementation and training.
 
+\section{Models and training}
 All of our models are implemented using the Pytorch library
 \cite{paszke_pytorch} version 1.2.0.
 We use the implementation and pretrained weights of ResNet
@@ -40,3 +40,19 @@ We use semantic dropout on both models that have segmentation and attention, and
 an equivalent regular dropout layer to the ResNetAttn Baseline for fair comparison.
 Weight decay and traditional dropout are used for all baseline models that finetune ResNet weights.
 See table \ref{tab:hyperparams} for details on the training hyperparameters.
+
+\section{Visualization}
+For visualization we generate both segmentation and attention images, in this section
+we will explain how we generate the attention visualizations, for segmentation see appendix \ref{sec:seg_colors}.
+
+We generate the attention images by first extracting the weight matrix $A$ from the softmax operation
+of the attention layer (see equation \ref{eq:attention}). $A$  is a square matrix of size
+$|A|=(hw)^2$ with $h$ and $w$ the height and width of the layer's input, since it represents
+the importance of each pixel for each output of the layer. To reduce it to a single weight per pixel
+we take the column wise (opposed dimension of the softmax)  mean of $A$ and
+then reshape it to the original image size, obtaining an attention map $A' \in \mathbb{R}_{[0,1]}^{h \times w}$.
+
+Since in practice, $h$ and $w$ are too small to produce a good quality visualization we resize $A'$ with
+bilinear interpolation to the standard size of $244 \times 244$. Finally each image is min max normalized to be in
+the $[0, 255]$ interval in order to apply the color gradient that generates the final heatmap.
+For sample results see section \ref{sec:visualization_results}.
