@@ -106,8 +106,36 @@ on all models.
 \section{Visualization results}
 \label{sec:visualization_results}
 
-- Per attribute visualizations.
+As was detailed in section \ref{sec:methodology_visualization}, we  derive heatmaps
+from the attention weights, which serve as an additional model interpretation
+tool on a per instance level. For example, showing the visualization for all attributes on
+a single image, shows how the models pay attention to different parts of the image for different
+attributes. See figures \ref{fig:segrank_attention}, \ref{fig:vis_sample} for examples.
 
-- Per object visualizations
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/vis_samples(seg_attn).png}
+	\caption[Multi attribute Visualization Sample]{
+        Attention heatmaps for the AttentionSegRank architecture on all attributes.
+        }
+	\label{fig:vis_sample}
+	\end{center}
+\end{figure}
+
+Combining the segmentation with the heatmap allows to see how the attention is distributed
+through the different segmentation classes, both qualitatively and quantitatively, as can
+be seen in figure \ref{fig:object_attention}.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/object_attention.png}
+	\caption[Attention by segmentation class heatmaps.]{
+		Segmentation class separated attention heatmaps for the AttentionSegRank architecture on the boring attribute.
+		Only classes present on the segmentation are shown. Percentages indicate the amount of attention given to that
+		class.
+        }
+	\label{fig:object_attention}
+	\end{center}
+\end{figure}
 
 - Baseline vs segrank vs segattn

@@ -42,6 +42,7 @@ Weight decay and traditional dropout are used for all baseline models that finet
 See table \ref{tab:hyperparams} for details on the training hyperparameters.
 
 \section{Visualization}
+\label{sec:methodology_visualization}
 For visualization we generate both segmentation and attention images, in this section
 we will explain how we generate the attention visualizations, for segmentation see appendix \ref{sec:seg_colors}.
 
@@ -53,6 +54,6 @@ we take the column wise (opposed dimension of the softmax)  mean of $A$ and
 then reshape it to the original image size, obtaining an attention map $A' \in \mathbb{R}_{[0,1]}^{h \times w}$.
 
 Since in practice, $h$ and $w$ are too small to produce a good quality visualization we resize $A'$ with
-bilinear interpolation to the standard size of $244 \times 244$. Finally each image is min max normalized to be in
+bilinear interpolation to the standard size of $224 \times 224$. Finally each image is min max normalized to be in
 the $[0, 255]$ interval in order to apply the color gradient that generates the final heatmap.
 For sample results see section \ref{sec:visualization_results}.
