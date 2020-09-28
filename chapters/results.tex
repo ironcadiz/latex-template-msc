@@ -30,11 +30,11 @@ reaching 64.41\% on the AttentionSegRank arquitecture. See table \ref{tab:model_
 		Attibute/Model & Resnet50 & ResnetAttn & SegRank & SelfSegRank  & AttnSegRank \\ \hline
 		Wealthy        & 68.45\%   & 68.60\%    & 60.99\% & 61.89\%     & 66.27\%     \\
 		Depressing     & 65.87\%   & 66.02\%    & 61.73\% & 62.30\%     & 64.33\%     \\
-		Safety         & 65.41\%   & 65.46\%    & 59.08\% & 60.24\%     & 63.46\%     \\
+		Safety         & 65.41\%   & 65.46\%    & 59.08\% & 60.24\%     & 64.04\%     \\
 		Lively         & 65.93\%   & 64.78\%    & 58.96\% & 60.29\%     & 63.35\%     \\
 		Boring         & 62.28\%   & 62.20\%    & 58.01\% & 58.51\%     & 61.06\%     \\
 		Beautiful      & 70.02\%   & 69.60\%    & 64.93\% & 65.43\%     & 67.99\%     \\ \hline
-		Average        & \textbf{66.33\%}    & 66.11\%    & 60.62\% & 61.44\%     & 64.41\%     \\ \hline
+		Average        & \textbf{66.33\%}    & 66.11\%    & 60.62\% & 61.44\%     & 64.51\%     \\ \hline
 	\end{tabular}
 	\label{tab:model_acc}
 \end{table}
@@ -138,4 +138,16 @@ be seen in figure \ref{fig:object_attention}.
 	\end{center}
 \end{figure}
 
-- Baseline vs segrank vs segattn
+Is important to note how the three attention models behave differently for the same image, which can be seen by
+plotting the heatmaps side by side, as it is shown in figure \ref{fig:model_comparison}
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/model_comparison.png}
+	\caption[Attention by segmentation class heatmaps.]{
+		Example of attention heatmaps for the three models on the safety attribute.
+		Using segmentation adds significant improvement to the heatmap shapes.
+        }
+	\label{fig:model_comparison}
+	\end{center}
+\end{figure}
