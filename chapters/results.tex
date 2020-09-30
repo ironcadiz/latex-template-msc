@@ -40,12 +40,13 @@ reaching 64.41\% on the AttentionSegRank arquitecture. See table \ref{tab:model_
 \end{table}
 
 \subsection{Training behavior}
+\label{sec:training}
 
 Models trained on the place pulse dataset are very prone to overfitting, we believe this is due to it
 having a very large amount of votes in comparison to the amount of available images, and because the task
 is very hard to generalize given the high amount of noise that the dataset has from how it was collected.
 This can be seen clearly on figures \ref{fig:resnet_graph} and \ref{fig:resnet_attn_graph}. Both
-baselines models present considerably overfitting, showing accuracy differences between seen and unseen data
+baselines models present considerable overfitting, showing accuracy differences between seen and unseen data
 of up to 25\%, and ceasing to improve on the validation set after one or two training epochs.
 
 \begin{figure}[ht]
@@ -69,12 +70,11 @@ of up to 25\%, and ceasing to improve on the validation set after one or two tra
 \end{figure}
 
 Replacing the CNN features for semantic segmentation generates a considerable change in training
-behavior, with the reduced expressiveness of the segmentation acting as a very strong regularizer,
-overfitting completely disappears, which translates to a drop of around 20\% to 30\% accuracy in training,
-but of only 6\% on validation.
+behavior, with the reduced expressiveness of the segmentation overfitting completely disappears,
+which translates to a drop of around 20\% to 30\% accuracy in training, but of only 6\% on validation.
 
 The basic SegRank architecture still reaches convergence after one or two epochs.
-Adding the self attention layer makes it slightly slower allowing the model reach a higher validation accuracy.
+Adding the self attention layer makes convergence slightly slower allowing the model reach a higher validation accuracy.
 
 
 \begin{figure}[ht]
@@ -96,6 +96,21 @@ Adding the self attention layer makes it slightly slower allowing the model reac
 	\label{fig:selfsegrank_graph}
 	\end{center}
 \end{figure}
+
+Interestingly, similar but reduced behavior happens with the AttentionSegRank model,
+dropping around 10\% to 20\% accuracy on training and ~2\% on validation.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=1\textwidth]{./figures/AttentionSegRank_graph.jpg}
+	\caption[AttentionSegRank Training curves]{
+        AttentionSegRank accuracy vs epoch learning curves on training (a) and validation (b).
+        }
+	\label{fig:attentionsegrank_graph}
+	\end{center}
+\end{figure}
+
+
 
 As it can be seen on the results of all models, the learning process is consistent through out
 the different attributes. The accuracy of the different attributes is also consistent across the
