@@ -84,13 +84,21 @@ than others, we believe this happens because they are much more common than othe
 and the networks learn to consider them more often. For the exact distribution of the segmentation classes
 see appendix \ref{sec:seg_distribution}.
 
-This results support that attention weights are a good way to augment the explainability of
+Even though the  set of classes used by \citeA{zhang_measuring} is not exactly the same as
+the one we use in our study, the most significant classes for our model are consistent with
+the ones presented in their regression model. This is important because it shows we
+are approaching the interpretability of a simple regression model with a considerably larger
+neural network.
+
+These results support that attention weights are a good way to augment the explainability of
 the models since they show that the same architecture learns to attend to different things
 when quantifying different attributes.
 
+
 We can also visualize which classes are significant for individual examples, allowing
 for a simple interpretation of results on a per instance basis.
-See figure \ref{fig:ratio} in which the road and sky classes are significant.
+See figure \ref{fig:ratio} in which the road and sky classes were determined as significant
+by the models attention.
 
 \begin{figure}[ht]
 	\begin{center}
