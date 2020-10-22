@@ -116,9 +116,41 @@ by the models attention.
 Similarly to previous work \cite{rossetti, zhang_measuring} we analyze how the segmentation relate with the quantified
 perception scores, for that we count the percentage of pixels of each segmentation class
 on all the images of the validation split for each of the perception attributes and measure
-correlation with the output.
+correlation with the perception quantification.
 
-Acá van los graficos del score respecto a la segmentación. y la tabla de correlación
+\begin{figure}
+	\centering
+	\subfloat[wealthy]{
+	  \includegraphics[width=0.45\textwidth]{./figures/wealthy_correlation.png}
+	}
+	\subfloat[depressing]{
+	  \includegraphics[width=0.45\textwidth]{./figures/depressing_correlation.png}
+	}
+	\hspace{0mm}
+	\subfloat[safety]{
+	  \includegraphics[width=0.45\textwidth]{./figures/safety_correlation.png}
+	}
+	\subfloat[boring]{
+	  \includegraphics[width=0.45\textwidth]{./figures/boring_correlation.png}
+	}
+	\hspace{0mm}
+	\subfloat[lively]{
+	  \includegraphics[width=0.45\textwidth]{./figures/lively_correlation.png}
+	}
+	\subfloat[beautiful]{
+	  \includegraphics[width=0.45\textwidth]{./figures/beautiful_correlation.png}
+	}
+	\caption{
+		Correlation between segmentation and attention percentages for each class and
+		quantified scores.
+		}
+\end{figure}
+\label{fig:correlations}
+
+
+Diferencia en correlacion segun significancia
+
+Acá van los graficos del score respecto a la segmentación. Mostrar ejemplos buenos
 
 Acá van los comentarios de que cosas son importantes para que atributo y comparamos con rosetti ramirez y zhang.
 
