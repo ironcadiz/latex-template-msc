@@ -1,8 +1,8 @@
 In this chapter we will do further analyses of the model results with particular
 emphasis on the AttentionSegRank architecture due to it's better performance
 and explainability. On section one we will discuss the effects of using semantic segmentation
-on neural network  training. Section 2 will show the quantitative relationship between
-segmentation, attention and the perception quantification. And finally, section 3 we will
+on neural network  training. Sections two and three will show the quantitative relationship between
+segmentation, and the perception quantification. And finally, on section four we will
 analyze the implications of this method on model explainability.
 
 \section{Effect of semantic segmentation on learning}
@@ -62,8 +62,6 @@ where the class is present respectively. For the full results see appendix \ref{
 	\end{center}
 \end{figure}
 
-
-
 \begin{figure}[ht]
 	\begin{center}
 	\includegraphics[width=1\textwidth]{./figures/present_significance.png}
@@ -116,12 +114,27 @@ by the models attention.
 Similarly to previous work \cite{rossetti, zhang_measuring} we analyze how the segmentation relate with the quantified
 perception scores, for that we count the percentage of pixels of each segmentation class
 on all the images of the validation split for each of the perception attributes and measure
-correlation with the perception quantification.
+correlation with the perception quantification. We present these results for both
+segmentation and attention percentages on figure \ref{fig:correlations}.
 
-\begin{figure}
+In all classes correlation is not extremely high, we believe that to be a good result since
+no classes should have such a determinant inherence on the perception of an attribute as to
+reach a correlation close to 1 or -1. Attention and segmentation behave similarly, having
+opposite sign only on very rare cases, (e.g: road for the lively attribute) and differing
+only on the magnitude of the correlation most of the time. Comparing with the significance results shown
+on figure \ref{fig:total_sig}, the most significant classes on the dataset are also consistently on
+the top or bottom of the correlation charts, so the high significance comes hand in hand with
+high correlation more often than not.
+
+As is expected, the model's outputs correlate with the classes differently depending on the attribute,
+making sense with how the attributes themselves are correlated, for example vegetation is very positive
+for beauty but very negative for depressiveness.
+
+\begin{figure}[ht]
 	\centering
 	\subfloat[wealthy]{
 	  \includegraphics[width=0.45\textwidth]{./figures/wealthy_correlation.png}
+	  \label{fig:correlations:wealthy}
 	}
 	\subfloat[depressing]{
 	  \includegraphics[width=0.45\textwidth]{./figures/depressing_correlation.png}
@@ -147,14 +160,94 @@ correlation with the perception quantification.
 \end{figure}
 \label{fig:correlations}
 
+We also compute correlation between segmentation and score when the respective class is
+considered significant by the attention weights. The results are mostly maintained but with
+a slight tendency to have larger correlation magnitude. Figure \ref{fig:correlation_significant}
+shows an example comparing the correlation for all the images and filtered for significance.
+Most classes get an increase in magnitude while keeping the sign fixed. Sign changes can happen
+occasionally for classes with very low correlation magnitude ($< 0.1$).
 
-Diferencia en correlacion segun significancia
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.75\textwidth]{./figures/boring_correlation_significant.png}
+	\caption[Correlation comparison for significant images]{
+		Correlation between score and segmentation percentage. Comparison between
+		the whole dataset and filtering each class
+		by significance. Example for the boring attribute.
+        }
+	\label{fig:correlation_significant}
+	\end{center}
+\end{figure}
 
-Acá van los graficos del score respecto a la segmentación. Mostrar ejemplos buenos
+\begin{figure}[ht]
+	\centering
+	\subfloat[vegetation]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_scatter.png}
+	}
+	\subfloat[building]{
+	  \includegraphics[width=0.3\textwidth]{./figures/building_scatter.png}
+	}
+	\hspace{0mm}
+	\subfloat[fence]{
+	  \includegraphics[width=0.3\textwidth]{./figures/fence_scatter.png}
+	}
+	\caption{
+		Scatter plots for the 3 classes with highest correlation for the beautiful attribute.
+		Colors denote if that class was significant for that image.
+	}
+	\label{fig:scatters}
+\end{figure}
 
-Acá van los comentarios de que cosas son importantes para que atributo y comparamos con rosetti ramirez y zhang.
+Even though some classes have high (or low) correlation is important to note that in no case
+their sole values are enough to determine the final output score, even when filtering by significance.
+Other objects on the images and ResNet features are also necessary to get a more precise
+quantification of the perception. See figure \ref{fig:scatters} where even though the correlation
+can be seen clearly, for a single segmentation percentage the scores fall over a large interval.
 
-\section{Effect of attention over semantic segmentation on model explainability}
+\section{Effect of combining features and segmentation.}
+
+As a way of ablation study we evaluate the same metrics with the more basic models.
+By analyzing SelfSegRank we can see the impact the ResNet features have on the model  behavior
+besides the performance improvement.
+Using only segmentation results in a larger bias in significance towards the classes more
+common in the dataset, with the least present reaching 0\% significance for some attributes.
+Following that tendency, the correlation order of the classes is mostly kept, but with an
+increase in the correlation magnitude, that is an expected behavior since this model depends on segmentation as
+the sole input. An example of this difference can be seen comparing figure \ref{fig:correlation_selfsegrank} and
+figure \ref{fig:correlations:wealthy}.
+
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.75\textwidth]{./figures/selfsegrank_correlation.png}
+	\caption[SelfSegRank Correlation]{
+		Correlation between score and segmentation/attention percentages on the
+		SelfSegRank model. Example for the wealthy attribute.
+        }
+	\label{fig:correlation_selfsegrank}
+	\end{center}
+\end{figure}
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[building]{
+	  \includegraphics[width=0.3\textwidth]{./figures/building_scatter_selfsegrank.png}
+	}
+	\subfloat[truck]{
+	  \includegraphics[width=0.3\textwidth]{./figures/truck_scatter_selfsegrank.png}
+	}
+	\hspace{0mm}
+	\subfloat[sky]{
+	  \includegraphics[width=0.3\textwidth]{./figures/sky_scatter_selfsegrank.png}
+	}
+	\caption{
+		Scatter plots showing examples of converging attributes. All plots made
+		for the wealthy attribute.
+	}
+	\label{fig:scatters}
+\end{figure}
+
+\section{Effect of attention over semantic segmentation on model explainability.}
 Acá hablamos de las visualizaciones de atención promedio.
 
 Acá mostramos ejemplos de visualizaciones en que se vean atenciones claras junto con el score.
