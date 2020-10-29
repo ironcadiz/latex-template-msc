@@ -1,8 +1,9 @@
 In this chapter we will do further analyses of the model results with particular
 emphasis on the AttentionSegRank architecture due to it's better performance
 and explainability. On section one we will discuss the effects of using semantic segmentation
-on neural network  training. Sections two and three will show the quantitative relationship between
-segmentation, and the perception quantification. And finally, on section four we will
+on neural network  training. Sections two and three will show a quantitative analysis between
+segmentation, attention, and the perception quantification. Section four shows the effect of combining
+image features with segmentation. And finally, on section five we will
 analyze the implications of this method on model explainability.
 
 \section{Effect of semantic segmentation on learning}
@@ -216,13 +217,20 @@ increase in the correlation magnitude, that is an expected behavior since this m
 the sole input. An example of this difference can be seen comparing figure \ref{fig:correlation_selfsegrank} and
 figure \ref{fig:correlations:wealthy}.
 
+Another interesting behavior of the segmentation only architectures is
+that when a single class takes a large portion of an image,
+the model output tends to converge to a middle point value, this may be due to the lack of
+information the model has when the inputs consists solely of a large  blob of a single class with no
+additional features. The fact that this behavior is not replicated by the SelfSegRank model, supports
+that adding the traditional image features to the segmentation is a better approach not only for performance
+but for explainability as well.
 
 \begin{figure}[ht]
 	\begin{center}
 	\includegraphics[width=0.75\textwidth]{./figures/selfsegrank_correlation.png}
 	\caption[SelfSegRank Correlation]{
 		Correlation between score and segmentation/attention percentages on the
-		SelfSegRank model. Example for the wealthy attribute.
+		SelfSegRank model. Example for the SelfSegRank architecture on the wealthy attribute.
         }
 	\label{fig:correlation_selfsegrank}
 	\end{center}
