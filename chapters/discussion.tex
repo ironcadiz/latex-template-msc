@@ -208,14 +208,14 @@ can be seen clearly, for a single segmentation percentage the scores fall over a
 \section{Effect of combining features and segmentation.}
 
 As a way of ablation study we evaluate the same metrics with the more basic models.
-By analyzing SelfSegRank we can see the impact the ResNet features have on the model  behavior
+By analyzing SelfSegRank and SegRank we can see the impact the ResNet features have on the model  behavior
 besides the performance improvement.
 Using only segmentation results in a larger bias in significance towards the classes more
 common in the dataset, with the least present reaching 0\% significance for some attributes.
 Following that tendency, the correlation order of the classes is mostly kept, but with an
 increase in the correlation magnitude, that is an expected behavior since this model depends on segmentation as
-the sole input. An example of this difference can be seen comparing figure \ref{fig:correlation_selfsegrank} and
-figure \ref{fig:correlations:wealthy}.
+the sole input. An example of this difference can be seen on figure \ref{fig:correlation_comparison}  or
+by comparing figure \ref{fig:correlation_selfsegrank} and figure \ref{fig:correlations:wealthy}.
 
 Another interesting behavior of the segmentation only architectures is
 that when a single class takes a large portion of an image,
@@ -224,6 +224,17 @@ information the model has when the inputs consists solely of a large  blob of a 
 additional features. The fact that this behavior is not replicated by the SelfSegRank model, supports
 that adding the traditional image features to the segmentation is a better approach not only for performance
 but for explainability as well.
+
+\begin{figure}[ht]
+	\begin{center}
+	\includegraphics[width=0.75\textwidth]{./figures/correlation_comparison.png}
+	\caption[Correlation comparison]{
+		Segmentation and score correlation comparison for the three architectures on the wealthy
+		attribute.
+        }
+	\label{fig:correlation_comparison}
+	\end{center}
+\end{figure}
 
 \begin{figure}[ht]
 	\begin{center}
