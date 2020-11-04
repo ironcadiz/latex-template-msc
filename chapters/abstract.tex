@@ -4,12 +4,13 @@ on surveys over either real or simulated urban environments. The recently increa
 of large amounts of data and highly scalable data collection methods powered by the modern web
 has allowed for new techniques from other domains to be extended to the estimation of urban perception.
 In particular, machine learning methods used as either stand alone models or feature extraction tools
-have proven to be very effective for automatic quantification of the perception. This methods (neural networks in particular) present the disadvantage of having a black box
-nature, which can make it hard for humans to understand the obtained results, therefore limiting
-their application.
+have proven to be very effective for automatic quantification of the perception. This methods
+(neural networks in particular) present the disadvantage of having a black box
+nature, which can make it hard to understand the obtained results from a human point of view,
+therefore limiting their application.
 
 In this work we present a novel neural network architecture for automatic urban perception quantification.
-Our best model, named AttnSegRank, can output an estimated urban perception score based on an image,
+Based on an image our best model, named AttnSegRank, can output an estimated urban perception score,
 along with a set of weights (displayable as a heatmap) that reflect the importance of each part of the image
 on the calculation of the score. It achieves this by including the output of a pretrained
 semantic segmentator leveraged with an attention mechanism as part of the architecture. The model
