@@ -192,7 +192,7 @@ occasionally for classes with very low correlation magnitude ($< 0.1$).
 	\subfloat[fence]{
 	  \includegraphics[width=0.3\textwidth]{./figures/fence_scatter.png}
 	}
-	\caption{
+	\caption[Score vs segmentation scatter plots]{
 		Scatter plots for the 3 classes with highest correlation for the beautiful attribute.
 		Colors denote if that class was significant for that image.
 	}
@@ -280,7 +280,7 @@ but for explainability as well.
 	\subfloat[sky]{
 	  \includegraphics[width=0.3\textwidth]{./figures/sky_scatter_selfsegrank.png}
 	}
-	\caption{
+	\caption[SelfSegRank score vs segmentation scatter plots]{
 		Scatter plots showing examples of converging attributes. All plots made
 		for the wealthy attribute.
 	}
@@ -288,6 +288,64 @@ but for explainability as well.
 \end{figure}
 
 \section{Effect of attention over semantic segmentation on model explainability.}
-Acá hablamos de las visualizaciones de atención promedio.
+The main objective of this work is to improve model explainability, the main tool we present
+towards that objective is the use of semantic segmentation to compute attention weights, this
+approach generates considerably better attention weights from a semantic stand point, since
+the shapes generated have a very high consistency with those given by the semantic segmentation,
+which are by definition human understandable.
 
-Acá mostramos ejemplos de visualizaciones en que se vean atenciones claras junto con el score.
+Models in the computer vision literature that use attention
+weights to enhance explainability have the constant
+problem of region boundaries not being clearly delimited, often having
+shapes that do not resemble any human known object or figure in the image
+\cite{zhang_interpretable,zhang_relation,johnston_depth,carion_object}.
+Figure \ref{fig:model_comparison} shows an example
+of the advantage of our method over the baseline, which consists of
+a traditional attention mechanism.
+
+%TODO: Acá mostramos ejemplos de visualizaciones en que se vean atenciones claras junto con el score.
+
+Another benefit of segmentation based attention weights
+is we can also analyze how the attentions behave visually
+in an aggregated way, we do that by calculating the mean
+attention of each pixel belonging
+to a class through out the whole dataset, and use them to
+generate visualizations for each class and attribute.
+This visualizations allow  for an spatial analysis for
+different attributes, for example on figure \ref{fig:average_vegetations},
+there is a clear distinction between some attributes attending the top parts
+and others the bottom parts of image, this makes sense considering the vegetation
+class includes both trees (upper half) and grass and bushes (bottom half) which
+have different incidence depending on the attribute. This result
+is consistent with the previous literature \cite{rossetti, zhang_measuring}.
+
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[wealthy]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_averages/wealthy.png}
+	}
+	\subfloat[depressing]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_averages/depressing.png}
+	}
+	\hspace{0mm}
+	\subfloat[safety]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_averages/safety.png}
+	}
+	\subfloat[boring]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_averages/boring.png}
+	}
+	\hspace{0mm}
+	\subfloat[lively]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_averages/lively.png}
+	}
+	\subfloat[beautiful]{
+	  \includegraphics[width=0.3\textwidth]{./figures/vegetation_averages/beautiful.png}
+	}
+	\caption[Vegetation attention averages]{
+		Attention averages for the vegetation class. Red means more attention. The color
+		scales are logarithmic and are different for each image to ensure all the visualizations
+		are clear.
+		}
+\end{figure}
+\label{fig:average_vegetations}
