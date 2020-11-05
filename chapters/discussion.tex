@@ -205,6 +205,27 @@ Other objects on the images and ResNet features are also necessary to get a more
 quantification of the perception. See figure \ref{fig:scatters} where even though the correlation
 can be seen clearly, for a single segmentation percentage the scores fall over a large interval.
 
+As we mentioned above \citeA{zhang_measuring} used different segmentation classes
+in their study so an exact comparison of results is not possible, but the correlations we obtained
+are mostly consistent in sign and in order of magnitude with the beta coefficients they
+obtained (see figures \ref{fig:correlations} and \ref{fig:beta}).
+
+Some interesting insights can be drawn from the correlation results:
+
+\begin{itemize}
+	\item Buildings have a general "negative" connotation, making images more depressing and
+	boring, and less wealthy, safe, lively and beautiful.
+	\item Vegetation is the opposite, making images more wealthy, lively and beautiful and less
+	depressing and boring.
+	\item Unlike \cite{rossetti} we find that fences have a general "negative" connotation,
+	similar to buildings.
+	\item People seem to make images feel less safe, but also less boring.
+	\item Bicycles, which are rarely present in the dataset, are very discriminative for
+	many attributes.
+	\item Even though it is attended on a large percentage of the images, the sky doesn't have
+	a clear tendency on most attributes, excepting for boring.
+\end{itemize}
+
 \section{Effect of combining features and segmentation.}
 
 As a way of ablation study we evaluate the same metrics with the more basic models.
