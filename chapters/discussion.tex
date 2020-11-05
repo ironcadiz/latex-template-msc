@@ -319,7 +319,6 @@ class includes both trees (upper half) and grass and bushes (bottom half) which
 have different incidence depending on the attribute. This result
 is consistent with the previous literature \cite{rossetti, zhang_measuring}.
 
-
 \begin{figure}[ht]
 	\centering
 	\subfloat[wealthy]{
@@ -349,3 +348,41 @@ is consistent with the previous literature \cite{rossetti, zhang_measuring}.
 		}
 \end{figure}
 \label{fig:average_vegetations}
+
+Another interesting case to analyze is the road class, shown in figure \ref{fig:average_road}.
+As expected the average attentions show a triangular shape on the bottom of the images, which
+is how the road is shown in most images, but the boring and beautiful attributes put more attention
+on the top of the images, which only happens on images that are mostly road, such as tunnels and
+highways, combining this with the fact that road correlates negatively with beautiful and very
+positively with boring, we can see that the results are reasonable since highways and tunnels are
+indeed not so beautiful and quite boring.
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[wealthy]{
+	  \includegraphics[width=0.3\textwidth]{./figures/road_averages/wealthy.png}
+	}
+	\subfloat[depressing]{
+	  \includegraphics[width=0.3\textwidth]{./figures/road_averages/depressing.png}
+	}
+	\hspace{0mm}
+	\subfloat[safety]{
+	  \includegraphics[width=0.3\textwidth]{./figures/road_averages/safety.png}
+	}
+	\subfloat[boring]{
+	  \includegraphics[width=0.3\textwidth]{./figures/road_averages/boring.png}
+	}
+	\hspace{0mm}
+	\subfloat[lively]{
+	  \includegraphics[width=0.3\textwidth]{./figures/road_averages/lively.png}
+	}
+	\subfloat[beautiful]{
+	  \includegraphics[width=0.3\textwidth]{./figures/road_averages/beautiful.png}
+	}
+	\caption[Road attention averages]{
+		Attention averages for the road class. Red means more attention. The color
+		scales are logarithmic and are different for each image to ensure all the visualizations
+		are clear.
+		}
+\end{figure}
+\label{fig:average_road}
