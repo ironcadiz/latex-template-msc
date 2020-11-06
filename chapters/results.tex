@@ -166,3 +166,50 @@ plotting the heatmaps side by side, as it is shown in figure \ref{fig:model_comp
 	\label{fig:model_comparison}
 	\end{center}
 \end{figure}
+
+Finally by gathering up the three model outputs a very informative
+visualization of the urban perception of an image can be built.
+See figures \ref{fig:samples_1} and \ref{fig:samples_2} which show ranked
+samples for each of the attributes along with the segmentations and attention
+heatmaps.
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[wealthy]{
+	  \includegraphics[width=0.6\textwidth]{./figures/samples/wealthy.jpg}
+	}
+	\hspace{0mm}
+	\subfloat[depressing]{
+	  \includegraphics[width=0.6\textwidth]{./figures/samples/depressing.jpg}
+	}
+	\hspace{0mm}
+	\subfloat[safety]{
+	  \includegraphics[width=0.6\textwidth]{./figures/samples/safety.jpg}
+	}
+	\caption[Result samples]{
+		Result samples for wealthy, depressing and safety, ordered from lower to higher score.
+		The samples are taken from the validation split of each attribute.
+		}
+\end{figure}
+\label{fig:samples_1}
+
+
+\begin{figure}[ht]
+	\centering
+	\subfloat[boring]{
+	  \includegraphics[width=0.6\textwidth]{./figures/samples/boring.jpg}
+	}
+	\hspace{0mm}
+	\subfloat[lively]{
+	  \includegraphics[width=0.6\textwidth]{./figures/samples/lively.jpg}
+	}
+	\hspace{0mm}
+	\subfloat[beautiful]{
+	  \includegraphics[width=0.6\textwidth]{./figures/samples/beautiful.jpg}
+	}
+	\caption[Result samples]{
+		Result samples for boring, lively and beautiful, ordered from lower to higher score.
+		The samples are taken from the validation split of each attribute.
+		}
+\end{figure}
+\label{fig:samples_2}
