@@ -2,8 +2,8 @@ Thanks to the massive increase on availability of large amounts of data and the 
 of deep learning, new ways to approach old problems have become possible in a wide
 range of fields. This models usually provide more effective and generalizable solutions,
 but take away a large portion of the result interpretability and the capacity to understand
-what the models is truly doing. The modelling of urban perception has taken advantage
-of these advancements, with good success but the subjective nature of the problem
+what the models are truly doing. The modelling of urban perception has made use
+of these advancements with good success, but the subjective nature of the problem
 makes it a task that is specially affected by the lack of explainability of modern
 machine learning algorithms. Due to that the recent literature has presented hybrid methods
 combining regression or discrete choice models with high level features extracted
@@ -15,12 +15,38 @@ provide when trained end to end.
 In this work we presented a novel neural network architecture, aimed at tackling this problem,
 through the use of semantic segmentation combined with standard deep learning methods like
 fine tuning convolutional features and attention mechanisms. This model is capable of
-successfully estimating the perception  with a similar performance than those in the literature
+successfully estimating the perception  with a similar performance than those in the literature,
 but at the same time it outputs the attention weights and the segmentation of the image providing
 additional data that is human interpretable. We also present an aggregated analysis and visualizations
-of the results, that show that attention weights are good tool for augmenting model explainability.
+of the results, that show that attention weights are a good tool for augmenting model explainability.
 
+\section{Contribution to the state of the art.}
 
-\section{Contribution to the state of the art}
+\subsection{Enhancing explainability through high level features and attention.}
+The main contribution of this research is an end to end trainable neural network
+architecture for urban perception quantification that presents very desirable
+explainability properties. Unlike previous approaches in urban perception our models
+have the capacity to generate explainable insights on an instance level thanks to the
+semantic attention weights, making it a considerably more powerful tool both
+for research and practical application.
 
-\section{Future research directions}
+Additionally, the analysis on an aggregated level of segmentation and attention weights
+allows to draw similar conclusions to those from previous research, that based their models
+on more simple and interpretable techniques such as linear regression or econometric models,
+meaning that our architecture achieves an at least as good level of explainability
+but with a significantly more expressive and performing deep neural network.
+
+\subsection{Semantic segmentation as part of a neural network.}
+The AttentionSegRank neural architecture that we propose, contributes with a novel way of combining
+semantic segmentation with traditional deep convolutional features through the attention operations,
+allowing the network to learn the capacity of dynamically choosing which parts of an image to attend
+based on the semantic classes of the segmentation. This idea is not exclusive to the urban perception task
+nor to ranking problems, and may be used for classification or regression in any computer vision task
+that allows for a pretrained segmentator to be used or that has available data to train a new one from
+scratch.
+
+We think that this approach could prove useful on other vision domains where an improvement
+in model explainability is needed without sacrificing too much performance.
+
+\section{Future research directions.}
+
