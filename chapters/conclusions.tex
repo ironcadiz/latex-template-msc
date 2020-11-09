@@ -50,3 +50,29 @@ in model explainability is needed without sacrificing too much performance.
 
 \section{Future research directions.}
 
+\subsection{Improving dataset quality.}
+Though it's very useful, the Place Pulse 2.0 dataset, it's very poor annotation wise and due to
+the way it was designed, changes on the google street view api are  slowly deprecating it. These
+problems make it hard for standardizing performance results and therefore
+making research that can be replicated easily. Generating a new dataset through a more strict process
+and with richer high level annotations, such as segmentation labels could open many doors for new research.
+
+For example, experimenting if training the segmentator on the same dataset where the actual perception quantification
+will be learnt, or even training both things at the same time improves either performance
+or model explainability poses a very interesting research topic.
+
+\subsection{Additional high level features.}
+There is also a possibility to experiment with other types of high level vision futures, such as object
+detection, which could serve either as a complement or as a replacement for semantic segmentation.
+Previous work has shown that object detectors are useful for quantifying urban perception \cite{rossetti},
+and therefore it remains an important open question if a deep learning model integrating an object detector
+in its pipeline could improve either performance or explainability.
+
+\subsection{Improved attention mechanisms.}
+The attention mechanism used in this work is a simplified version of the now widely
+used transformer \cite{vaswani_attention}. Recent research has applied transformers and other similar
+attention mechanisms to several computer vision problems with great success. We abstained from using
+these techniques in our models because we made an effort to keep the models as simple as possible in order
+to reduce the black box nature of these very complex architectures. Improving over AttentionSegRank with
+a more modern, better performing attention mechanism and devising a way to keep a similar level of explainability
+with it, would be a very important contribution to the computer vision field.
