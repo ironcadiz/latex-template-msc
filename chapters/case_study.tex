@@ -22,7 +22,7 @@ of cars and people at all times while also having a good amount of green areas.
 
 \begin{figure}[ht]
 	\begin{center}
-	\includegraphics[width=0.75\textwidth]{./figures/colormaps.jpg}
+	\includegraphics[width=0.75\textwidth]{./figures/colormaps_green.jpg}
 	\caption[Urban Perception for Santiago de Chile]{
         Urban Perception for Santiago de Chile, each dot represents an image that
         was analyzed with our model.
@@ -31,16 +31,22 @@ of cars and people at all times while also having a good amount of green areas.
 	\end{center}
 \end{figure}
 
-
 \begin{figure}[ht]
-	\begin{center}
-	\includegraphics[width=0.75\textwidth]{./figures/eod.png}
-	\caption[Wealth distribution of Santiago de Chile]{
-        Wealth distribution of Santiago de Chile by deciles. Darker means wealthier.
-        Reproduced from \citeA{Ramirez2020}.
+	\centering
+	\subfloat{
+		\includegraphics[width=0.5\textwidth]{./figures/colormaps_wealthy.jpg}
+	}
+	\subfloat{
+		\raisebox{4.5ex}{\includegraphics[width=0.35\textwidth]{./figures/EOD_mean_income.png}}
+	}
+	\subfloat{
+		\raisebox{4.5ex}{\includegraphics[width=0.1\textwidth]{./figures/EOD_income_leg.png}}
+	}
+	\caption[Wealthy score vs wealth distribution of Santiago de Chile]{
+        Wealthy score compared with the wealth distribution of Santiago de Chile by deciles. Darker means wealthier.
+        Decile colormap reproduced  with permission from \citeA{Ramirez2020}.
     }
 	\label{fig:eod}
-	\end{center}
 \end{figure}
 
 In order to have a quantitative measure of the ranking generated for Santiago we calculate the mean score over
