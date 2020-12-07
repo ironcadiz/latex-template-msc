@@ -44,7 +44,7 @@ See table \ref{tab:hyperparams} for details on the training hyperparameters.
 \section{Visualization}
 \label{sec:methodology_visualization}
 For visualization we generate both segmentation and attention images, in this section
-we will explain how we generate the attention visualizations, for segmentation see appendix \ref{sec:seg_colors}.
+we will explain how we generate the attention visualizations. See Appendix \ref{sec:seg_colors} for segmentation.
 
 We generate the attention images by first extracting the weight matrix $A$ from the softmax operation
 of the attention layer (see equation \ref{eq:attention}). $A$  is a square matrix of size
@@ -57,3 +57,8 @@ Since in practice, $h$ and $w$ are too small to produce a good quality visualiza
 bilinear interpolation to the standard size of $224 \times 224$. Finally each image is min max normalized to be in
 the $[0, 255]$ interval in order to apply the color gradient that generates the final heatmap.
 For sample results see section \ref{sec:visualization_results}.
+
+The heatmaps serve as an additional model interpretation
+tool on a per instance level. For example, showing the visualization for all attributes on
+a single image, shows how the models pay attention to different parts of the image for different
+attributes.

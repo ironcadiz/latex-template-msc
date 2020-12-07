@@ -1,12 +1,13 @@
 In this chapter we will do further analyses of the model results with particular
-emphasis on the AttentionSegRank architecture due to it's better performance
-and explainability. On section one we will discuss the effects of using semantic segmentation
-on neural network  training. Sections two and three will show a quantitative analysis between
+emphasis on the AttentionSegRank architecture due to its better performance
+and explainability. On Section \label{sec:overfit} we will discuss the effects of using semantic segmentation
+on neural network  training. Sections \ref{sec:significance} and \ref{sec:relationship} will show a quantitative analysis between
 segmentation, attention, and the perception quantification. Section four shows the effect of combining
 image features with segmentation. And finally, on section five we will
 analyze the implications of this method on model explainability.
 
 \section{Effect of semantic segmentation on learning}
+\label{sec:overfit}
 As was already mentioned on section \ref{sec:training}, adding a fixed segmentator to
 the neural network architecture resulted in a reduction of performance along with a considerable
 reduction of overfitting. The behavior was expected when fully replacing the CNN features,
@@ -42,8 +43,8 @@ those pixels:
 	\text{significance ratio} = \frac{\% \text{ attention}}{ \% \text{ segmentation}}
 \end{equation}
 
-Using that we define that a class is significant in an image when significance ratio $\geq 1$.
-Meaning that the total attention received by the pixels belonging to that class is larger
+Using that, we define that a class is significant in an image when significance ratio $\geq 1$,
+meaning that the total attention received by the pixels belonging to that class is larger
 than the amount they would get if the attention was distributed uniformly over the whole image.
 
 We calculate the significance of all the CityScapes classes
@@ -75,7 +76,7 @@ where the class is present respectively. For the full results see appendix \ref{
 \end{figure}
 
 
-The most notable insight from this results is that there is considerable differences on the same class
+The most notable insight from this results is that there are considerable differences on the same class
 but for different attributes, for example buildings are the most significant for the boring attribute
 but is one of the least for the depressing attribute. Vegetation is significant for beautiful and
 depressive but not for wealthy. Another insight is that some classes are on average considerably more significant
@@ -86,7 +87,7 @@ see appendix \ref{sec:seg_distribution}.
 Even though the  set of classes used by \citeA{zhang_measuring} is not exactly the same as
 the one we use in our study, the most significant classes for our model are consistent with
 the ones presented in their regression model. This is important because it shows we
-are approaching the interpretability of a simple regression model with a considerably larger
+are approaching the interpretability of regression model with a considerably larger
 neural network.
 
 These results support that attention weights are a good way to augment the explainability of
@@ -111,15 +112,16 @@ by the models attention.
 
 
 \section{Relationship between urban perception and semantic segmentation}
+\label{sec:relationship}
 
-Similarly to previous work \cite{rossetti, zhang_measuring} we analyze how the segmentation relate with the quantified
-perception scores, for that we count the percentage of pixels of each segmentation class
+Similarly to previous work \cite{rossetti, zhang_measuring} we analyze how the segmentation correlates with the quantified
+perception scores. For that, we count the percentage of pixels of each segmentation class
 on all the images of the validation split for each of the perception attributes and measure
 correlation with the perception quantification. We present these results for both
 segmentation and attention percentages on figure \ref{fig:correlations}.
 
 In all classes correlation is not extremely high, we believe that to be a good result since
-no classes should have such a determinant inherence on the perception of an attribute as to
+no class should have such a determinant inherence on the perception of an attribute as to
 reach a correlation close to 1 or -1. Attention and segmentation behave similarly, having
 opposite sign only on very rare cases, (e.g: road for the lively attribute) and differing
 only on the magnitude of the correlation most of the time. Comparing with the significance results shown
@@ -205,8 +207,8 @@ Other objects on the images and ResNet features are also necessary to get a more
 quantification of the perception. See figure \ref{fig:scatters} where even though the correlation
 can be seen clearly, for a single segmentation percentage the scores fall over a large interval.
 
-As we mentioned above \citeA{zhang_measuring} used different segmentation classes
-in their study so an exact comparison of results is not possible, but the correlations we obtained
+As we mentioned above, \citeA{zhang_measuring} used different segmentation classes
+in their study so an exact comparison of results is not possible. However the correlations we obtained
 are mostly consistent in sign and in order of magnitude with the beta coefficients they
 obtained (see figures \ref{fig:correlations} and \ref{fig:beta}).
 
@@ -219,17 +221,18 @@ Some interesting insights can be drawn from the correlation results:
 	depressing and boring.
 	\item Unlike \cite{rossetti} we find that fences have a general "negative" connotation,
 	similar to buildings.
-	\item People seem to make images feel less safe, but also less boring.
+	\item People make images feel less safe, but also less boring.
 	\item Bicycles, which are rarely present in the dataset, are very discriminative for
 	many attributes.
-	\item Even though it is attended on a large percentage of the images, the sky doesn't have
+	\item Even though it has high attention weights on a large percentage of the images, the sky doesn't have
 	a clear tendency on most attributes, excepting for boring.
 \end{itemize}
 
 \section{Effect of combining features and segmentation.}
+\label{sec:combining}
 
 As a way of ablation study we evaluate the same metrics with the more basic models.
-By analyzing SelfSegRank and SegRank we can see the impact the ResNet features have on the model  behavior
+By analyzing SelfSegRank and AttentionSegRank we can see the impact the ResNet features have on the model  behavior
 besides the performance improvement.
 Using only segmentation results in a larger bias in significance towards the classes more
 common in the dataset, with the least present reaching 0\% significance for some attributes.
@@ -239,10 +242,10 @@ the sole input. An example of this difference can be seen on figure \ref{fig:cor
 by comparing figure \ref{fig:correlation_selfsegrank} and figure \ref{fig:correlations:wealthy}.
 
 Another interesting behavior of the segmentation only architectures is
-that when a single class takes a large portion of an image,
-the model output tends to converge to a middle point value, this may be due to the lack of
+that when a single segmentation class takes a large portion of an image,
+the model output tends to converge to a middle point value. This may be due to the lack of
 information the model has when the inputs consists solely of a large  blob of a single class with no
-additional features. The fact that this behavior is not replicated by the SelfSegRank model, supports
+additional features. The fact that this behavior is not replicated by the AttentionSegRank model, supports
 that adding the traditional image features to the segmentation is a better approach not only for performance
 but for explainability as well.
 
@@ -281,16 +284,16 @@ but for explainability as well.
 	  \includegraphics[width=0.3\textwidth]{./figures/sky_scatter_selfsegrank.png}
 	}
 	\caption[SelfSegRank score vs segmentation scatter plots]{
-		Scatter plots showing examples of converging attributes. All plots made
+		Scatter plots showing examples of converging attributes on the SelfSegRank model. All plots made
 		for the wealthy attribute.
 	}
-	\label{fig:scatters}
+	\label{fig:scatters_selfsegrank}
 \end{figure}
 
 \section{Effect of attention over semantic segmentation on model explainability.} \label{sec:seg_explainability}
-The main objective of this work is to improve model explainability, the main tool we present
-towards that objective is the use of semantic segmentation to compute attention weights, this
-approach generates considerably better attention weights from a semantic stand point, since
+The main objective of this work is to improve model explainability. The tool we present
+towards that objective is the use of semantic segmentation to compute attention weights. This
+approach generates considerably better attention weights from a semantic standpoint, since
 the shapes generated have a very high consistency with those given by the semantic segmentation,
 which are by definition human understandable.
 
@@ -304,7 +307,8 @@ of the advantage of our method over the baseline, which consists of
 a traditional attention mechanism.
 
 Another benefit of segmentation based attention weights
-is we can also analyze how the attentions behave visually
+is, since weights have a human understandable shape,
+we can also analyze how they behave visually
 in an aggregated way, we do that by calculating the mean
 attention of each pixel belonging
 to a class through out the whole dataset, and use them to

@@ -1,18 +1,18 @@
-This chapter shows the main results obtained. On section one we present the quantitative
-performance and training results. Section 2 explains how the different visualizations
+This chapter shows the main results obtained. On Sections \ref{sec:perf} and \ref{sec:training} we present the quantitative
+performance and training results. Section \ref{sec:visualization_results} explains how the different visualizations
 are generated, including examples for all the models.
 
 \section{Quantitative results}
 
 \subsection{Model performance}
-
+\label{sec:perf}
 Even though the objective of this research is to learn a ranking (or regression) to
 quantify the urban perception, exact labels for this are not available, so we have to measure
 model performance based on the Place Pulse votes, which as was mentioned on section
 \ref{sec:problem_def}, has considerable issues. We use as performance measure the
 equivalent to classification accuracy, considering which image won the vote as the target label.
 In other words, we evaluate the percentage of restrictions (see \ref{eq:constraints})
-that are satisfied by the model. We do this separately for each attribute in it's corresponding
+that are satisfied by the model. We do this separately for each attribute in its corresponding
 validation set and the final accuracy value for each model is calculated as the mean accuracy through
 all attributes.
 
@@ -20,13 +20,13 @@ Both ResNet based baseline models achieve an accuracy of \texttildelow 66\% and
 as it was expected, replacing the more expressive CNN features for semantic segmentation,
 caused a significant performance drop, falling to 60.62\% for SegRank and 61.44\%
 for SelfSegRank. The performance is then mostly recovered when combining both approaches,
-reaching 64.41\% on the AttentionSegRank arquitecture. See table \ref{tab:model_acc}, for the exact accuracy values.
+reaching 64.41\% on the AttentionSegRank architecture. See table \ref{tab:model_acc}, for the exact accuracy values.
 
 
 \begin{table}[H]
 	\begin{tabular}{|l|r|r|r|r|r|}
 		\hline
-		Attibute/Model & Resnet50 & ResnetAttn & SegRank & SelfSegRank  & AttnSegRank \\ \hline
+		Attribute/Model & Resnet50 & ResnetAttn & SegRank & SelfSegRank  & AttnSegRank \\ \hline
 		Wealthy        & 68.45\%   & 68.60\%    & 60.99\% & 61.89\%     & 66.27\%     \\
 		Depressing     & 65.87\%   & 66.02\%    & 61.73\% & 62.30\%     & 64.33\%     \\
 		Safety         & 65.41\%   & 65.46\%    & 59.08\% & 60.24\%     & 64.04\%     \\
@@ -42,7 +42,7 @@ reaching 64.41\% on the AttentionSegRank arquitecture. See table \ref{tab:model_
 \subsection{Training behavior}
 \label{sec:training}
 
-Models trained on the place pulse dataset are very prone to overfitting, we believe this is due to it
+Models trained on the place pulse dataset are very prone to overfitting. We believe this is due to it
 having a very large amount of votes in comparison to the amount of available images, and because the task
 is very hard to generalize given the high amount of noise that the dataset has from how it was collected.
 This can be seen clearly on figures \ref{fig:resnet_graph} and \ref{fig:resnet_attn_graph}. Both
@@ -112,7 +112,7 @@ dropping around 10\% to 20\% accuracy on training and ~2\% on validation.
 
 
 
-As it can be seen on the results of all models, the learning process is consistent through out
+As it can be seen on the results of all models, the learning process is consistent throughout
 the different attributes. The accuracy of the different attributes is also consistent across the
 different models, with boring and beautiful being the hardest and easiest tasks to learn respectively
 on all models.
@@ -190,8 +190,8 @@ heatmaps.
 		Result samples for wealthy, depressing and safety, ordered from lower to higher score.
 		The samples are taken from the validation split of each attribute.
 		}
+	\label{fig:samples_1}
 \end{figure}
-\label{fig:samples_1}
 
 
 \begin{figure}[ht]
@@ -211,5 +211,5 @@ heatmaps.
 		Result samples for boring, lively and beautiful, ordered from lower to higher score.
 		The samples are taken from the validation split of each attribute.
 		}
+	\label{fig:samples_2}
 \end{figure}
-\label{fig:samples_2}

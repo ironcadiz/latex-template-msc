@@ -1,10 +1,11 @@
-This chapter presents a deep analysis of the dataset used. On section one an overall description
-and main statistics are shown. Section two consists of an early analysis of the data along with
+This chapter presents an analysis of the dataset used. On section \ref{sec:dataset_desc} an overall description
+and main statistics are shown. Section \ref{sec:dataset_prep} presents an early analysis of the data along with
 the preprocessing steps taken. Finally section 3 makes an analytical definition of the problem
 of learning urban perception from this data.
 
 
 \section{Description}
+\label{sec:dataset_desc}
 As was mentioned previously, this work is based on the Place Pulse 2.0 dataset \cite{hidalgo_placepulse}.
 PP 2.0 is a crowdsourced dataset designed for learning urban perception from street view like images.
 Unlike regular datasets for supervised machine learning, that have labels for each image, Place Pulse
@@ -20,25 +21,20 @@ the biggest available dataset for urban perception. The crowdsourcing survey was
 active for 5 years and it was answered by 81,630 different users. Demographic information
 about the users was not collected.
 
-One of the main issues with PP 2.0 is that the authors made only the votes available,
-supplying only the geographical coordinates of the images, so that they can be downloaded from
-the google street view API, but changes in the API interface and the available images through out
-the years have made it increasingly difficult and costly to download the original dataset for
-new researchers.
-
 \section{Analysis and preprocessing}
+\label{sec:dataset_prep}
 
-As a first preprocessing step all noisy images are removed by using a size threshold,
-since images small in size are mostly  google api errors or unintelligible places like
+As a first preprocessing step all noisy images are removed by using a file size threshold,
+since files small in size are mostly  google api errors or unintelligible places like
 dark tunnels.
 
-Is important to note that, unlike most crowdsourced datasets, the authors of PP didn't
-do any validation on the votes by making it so that the same question was answered by more than
-one person, and deleting inconsistent votes. 99.59\% of the image pairs that appear in the
-data set have a single vote in a category (see \ref{fig:rep_hist} for details.), making it impossible to validate them in any way.
-Even though some research indicates that answers to this surveys aren't affected by user
-bias or demographics \cite{hidalgo_inequality, costa_lisbon}, the noise in the votes is a
-clear dataset disadvantage. 34\% of the  pairs that have more than one vote in an attribute
+Is important to note that, unlike most crowdsourced datasets, the authors of PP did not
+perform a validation on the votes. 99.59\% of the image pairs that appear in the
+data set have a single vote in a category (see \ref{fig:rep_hist} for details.),
+making it impossible to corroborate if they are reasonable by comparing the votes of multiple people.
+Even though previous research indicates that answers to this surveys aren't affected by user
+bias or demographics \cite{hidalgo_inequality, costa_lisbon}, the inconsistency in the votes is a
+clear dataset disadvantage: 34\% of the  pairs that have more than one vote in an attribute
 show inconsistencies between the votes.
 
 
@@ -50,8 +46,8 @@ show inconsistencies between the votes.
 	\end{center}
 \end{figure}
 
-For this work all the inconsistent duplicates are removed and a single vote of those consistent is kept
-in the dataset. After this steps 1,207,938 votes for 111,299 images are left. See table \ref{tab:votes}
+For this work we completely remove all inconsistent duplicates and keep a single instance of those consistent.
+After these, steps 1,207,938 votes for 111,299 images are left. See Table \ref{tab:votes}
 for the exact vote distribution.
 
 \begin{table}[H]
@@ -73,45 +69,9 @@ for the exact vote distribution.
 \end{table}
 
 Users of the survey had the possibility of voting that a pair is tied for an attribute,
-meaning that they didn't perceive any significant difference, previous works just
-discard this data and don't use it for learning, focusing only on the votes where a winner was
+meaning that they didn't perceive any significant difference. Previous works usually
+discard this data and don't use it for learning, focusing only on the votes where a preference was
 chosen \cite{hidalgo_placepulse,zhang_measuring,tamara_judgments}. After preprocessing 15.3\% of the
 votes are ties, which means a significant amount of information is lost by disregarding them.
-
-
-\section{Problem Definition}
-\label{sec:problem_def}
-
-Following a similar formulation than \citeA{hidalgo_placepulse}, each attribute $A$ in the PP 2.0 dataset consists of a set
-of $m$ images $I_A = \{x_i\}_{i=1}^m \in \mathbb{R}^{h \times w \times 3}$, with $h$ and $w$
-the image height and width respectively, and a set of N vote triplets
-$P_A=\{(i_k, j_k, y_k) \;|\; i,j \in \{1, \ldots, m \} , y \in \{1,0,-1\}\}_{k=1}^N$, representing a comparison
-between the $i$th and $j$th image in $I$ with $y$ being the ground truth label, where $y=1$ or $y=-1$ means a win by image
-$i$ or $j$ respectively and  $y=0$ denotes a tie.
-
-The objective is to, for each attribute, learn a ranking function $f_A : \mathbb{R}^{h \times w \times 3} \rightarrow \mathbb{R}$
-that maps the image tensor to an urban perception score, satisfying the order given by the votes, formally the
-maximum amount of the following constraints need to be satisfied:
-
-\begin{equation}
-y \cdot (f_A(x_i) - f_A(x_j)) > 0 \;\; \forall (i,j,y) \in P_A, \; y \in \{-1,1\}
-\label{eq:constraints}
-\end{equation}
-
-Unlike the previous literature, tie votes are also used in this work, generating the following additional constraints:
-
-\begin{equation}
-	|f_A(x_i) - f_A(x_j)| < m \;\; \forall (i,j,y) \in P_A, \; y = 0, \; m \in \mathbb{R}^+
-	\label{eq:constraints_ties}
-\end{equation}
-
-Where $m$ is a constant margin.
-
-Since $f_A$ is intended to learn a ranking of the input images, it is desirable that the function defines and order
-on the image space so that the ranking results are consistent. This condition can and should be enforced by
-model design \cite{koppel_pairwise}, but since the data is crowdsourced without
-validation, the constraints generated by equation \ref{eq:constraints}, do not represent a  100\% transitive order.
-Because of that, it is infeasible for a model designed for ranking and therefore
-transitive by construction, to satisfy all of them.
-This issue makes it harder to obtain high scores in accuracy based metrics in practice, and
-those are the only ones available in the literature so far.
+Due to that we decided to add additional rules to the learning problem in order to be able to use
+these votes for learning. Details are shown on the following chapter.

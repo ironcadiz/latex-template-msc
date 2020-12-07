@@ -74,8 +74,8 @@ Other works \cite{porzi_predicting, santani} take similar approaches but pretrai
 the places dataset \cite{zhou_places}, which provides better performance according to their results.
 
 
-\citeA{zhang_measuring}, train models on PP 2 by combining a DCNN features and a SVM classifier, they use this model to
-obtain perception indicators of Beijing, they also use a semantic segmentation model \cite{cordts_cityscapes} on the images and used the results
+\citeA{zhang_measuring}, train models on PP 2 by combining a DCNN features and an SVM classifier to
+obtain perception indicators of Beijing. They also use a semantic segmentation model \cite{cordts_cityscapes} on the images and used the results
 as input to a linear regression, interpreting the regression weights as an indication of importance of the different segmentation
 classes on perception. On a following work \cite{zhang_uncovering} they train one deep network to predict all 6 attributes of PP 2
 in one forward pass, they do this using an end-to-end architecture similar to \citeA{hidalgo_placepulse} but adding
@@ -85,11 +85,11 @@ Is important to note that most of the literature so far is more focused on apply
 \cite{zhang_measuring, santani, costa_lisbon, rossetti} or generating new datasets with new attributes
 \cite{santani, zhang_uncovering}, than it is on improving model  design and performance.
 This is consistent with the fact that so far no good measures of performance for this problem have been defined,
-due to the fact that the datasets don't provide a measure of perception per se but a proxy through the survey votes.
+due to the fact that the datasets do not provide a measure of perception per se but a proxy through the survey votes.
 The objective of the models in the literature is to rank the images by the estimated perception of an attribute, but
-they measure  performance using accuracy on classification of the human votes, which doesn't necessarily correlate with the
+they measure  performance using accuracy on classification of the human votes, which does not necessarily correlate with the
 models capacity to generalize and rank well, especially in conflicted cases where even human voters
-would have difficulties \cite{zhang_measuring}. Despite the fact that models in the literature don't surpass 70\%
+would have difficulties \cite{zhang_measuring}. Despite the fact that models in the literature do not surpass 70\%
 classification  accuracy on  PP2, the actual ranking task seems to have correct results either by visual inspection,
 or by comparing with metrics from other domains such as crime rates or wealth indicators \cite{rossetti,zhang_measuring,tamara_judgments}.
 
@@ -97,16 +97,16 @@ or by comparing with metrics from other domains such as crime rates or wealth in
 \subsection{Mixed approaches.}
 \label{section:mixed}
 
-With the intention of generating more or different insights, usually more explainability, some
+With the intention of generating more or different insights, usually through more explainability, some
 work in the literature consists of combinations of computer vision or machine learning methods
-with other techniques. In \citeA{rossetti} the authors use a combination of low and high level features
-of the images as input for a discrete choice model that calculates perception. They extract low level features
-with traditional computer vision methods like edges or blobs and the high level features with a pretrained
-neural network for semantic segmentation. The semantic segmentation features allow for a posthoc analysis of
-the results, the authors reach conclusions like "Images with more sidewalks were deemed to be
+with other techniques. In \citeA{rossetti} the authors use a combination of low-level high-level features
+of the images as input for a discrete choice model that estimates perception. They extract low-level features
+with traditional computer vision methods like edges or blobs and the high-level features with a pretrained
+neural network for semantic segmentation. As the semantic segmentation features allow for a posthoc analysis of
+the results, the authors are able to reach conclusions like "Images with more sidewalks were deemed to be
 safer, livelier and wealthier, but less beautiful on average" and they present a table with the significance
 of each of the segmentation classes in each of the six PP 2 attributes according to the discrete model parameters.
-On a similar line, as was mentioned earlier \citeA{zhang_measuring} in addition to their main method, use
+On a similar line, as was mentioned earlier, \citeA{zhang_measuring} in addition to their main method use
 semantic segmentation features (they aggregate them by percentage of pixels on the image)
 as an input for multivariate linear regression allowing for similar conclusions to those of \citeA{rossetti}
 but using the beta coefficients (see figure \ref{fig:beta}).
@@ -120,16 +120,16 @@ but using the beta coefficients (see figure \ref{fig:beta}).
 \end{figure}
 
 On another work \citeA{seresinhe_beauty} train a DCNN to calculate the beauty of outdoor images,
-using transfer learning from the Places dataset, but separately they use a places trained model to obtain text tags from
+using transfer learning from the Places dataset, but separately they use a model trained on that same dataset to obtain text tags from
 the scenes such as 'Mountain' or 'Tower', and similarly to \citeA{zhang_measuring} they use a regression model
 (elastic net) to make conclusions about the significance of the concepts on the perception of beauty. The disadvantage
-of this approaches is that they give more insights of the results only at a general level, and therefore do not allow for
+of this approaches is that they provide more insights of the results only at a general level, and therefore do not allow for
 conclusions on a per instance level, which is what this work intends to do.
 
-Authors of \citeA{costa_lisbon} do an agreement analysis for this type of datasets,
-they built their own dataset of pairwise comparisons for safety, but used it
+Authors of \citeA{costa_lisbon} perform an agreement analysis for this type of dataset,
+by building their own dataset of pairwise comparisons for the perception of safety, but used it
 for  generating clusters of users based on the semantic segmentation of the images they voted for.
-They conclude that most clusters are due to lack of enough comparisons to do a good characterization
+They conclude that the existence of most clusters is due to a lack of enough comparisons to do a good characterization
 and that given enough votes all users converge to one generic profile. Is important to note
 that authors don't provide any social or demographic information of the 439 users that
 participated in the survey, and no other similar studies have been done so
@@ -138,7 +138,7 @@ far so their conclusion hasn't been replicated.
 \section{ Explainability in machine learning.}
 
 As was mentioned before, explainability has become a very active area of research
-in machine learning, this is due to the large increase in the usage of ML models
+in machine learning, due to the large increase in the usage of ML models
 for different day to day applications that affect the life's of thousands of people
 \cite{ras_explanation}. For example, in cases where model outputs are used for analytics or decision
 making, explainability can make the model both more trustworthy and informative.
@@ -164,7 +164,7 @@ the subject has the right to access, and the data controller is obliged to provi
 consequences of such processing for the data subject”, which will be very difficult to comply with,
 when working with something like a black box neural network.
 
-One of the two most common approaches to explainability in the literature are Post-hoc methods
+One of the two most common approaches to explainability in the literature are post-hoc methods
 \cite{adadi_xai} which try to obtain insights about how the models work, after the process of
 inference over all the dataset is completed. The methods mentioned in section
 \ref{section:mixed} are examples of this approach. Other more complex methods found in the recent literature
@@ -185,9 +185,11 @@ model input with semantic information, such as text, object bounding boxes or ev
 which restricts them to densely annotated datasets such as Visual Genome \cite{krishna_visualgenome},
 and the way the neural networks actually  use the additional information is not always clear.
 
-Other very common technique in the literature is the use of attention based models \cite{bahdanau_attention},
+Another technique in the literature is the use of attention based models \cite{bahdanau_attention},
 which have layers that consist on using a part of the input (usually called query) to compute a set of weights
-for the rest of the input (usually called value). The attention weights are usually computed through
+for the rest of the input (usually called value), in other words the query vector is used
+to determine which parts of the value vector are more relevant for the calculation of the output.
+The attention weights are usually computed through
 a linear transformation and a softmax operation on the query, giving them the property of being a probability
 distribution over the value vector \cite{cordonnier_relationship}, which is used to increase or decrease,
 parts of the value vector and therefore the layer output. A particular case of attention is
@@ -195,7 +197,8 @@ self-attention, which means that the same vector is used as both query and input
 in the recent literature is the transformer \cite{vaswani_attention}, which has been widely adopted in both
 language and vision tasks \cite{devlin_bert, radford_gpt, bello_attention, li_visualbert, carion_object}.
 
-Attention models have the additional value that the weights can be used to interpret what the network is doing, providing
+Attention models not only have provided improvements in performance,but also have the additional
+value that the weights can be used to interpret what the network is doing, providing
 explainable information about the model's decision process for each data instance \cite{wiegreffe_attention}.
 \citeA{clark_bertlook} analyse the attention outputs of the NLP transformer model BERT and show how they correspond
 well to linguistic notions of syntax, \citeA{zhang_interpretable} create an explainable VQA model by adding
@@ -204,7 +207,7 @@ supervised self-attention layers and visualizing their output as heatmaps over t
 between self attention and convolutional layers, and as part of their work they provide an interactive visualization
 of the attention weights \footnote{Available at \url{epfml.github.io/attention-cnn/}}. \citeA{jiang_fantastic} present
 a dataset that includes attention labels for images generated by human eye movement, allowing models to learn
-correct human like attention patterns. Is clear that visualization of attention weights has become a prominent tool
+correct human like attention patterns. 	These works show that visualization of attention weights has become a prominent tool
 for improving model explainability on the recent deep learning literature not only on language but on
 vision tasks as well \cite{zhang_relation, johnston_depth, carion_object}.
 
