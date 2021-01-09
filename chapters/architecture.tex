@@ -1,5 +1,5 @@
 This chapter presents a detailed explanation of the neural network models proposed in this work and
-the correspondent baselines used for comparison. In section \ref{sec:problem_def} we give a formal definition
+the correspondent baselines used for comparison. In Section \ref{sec:problem_def} we give a formal definition
 of the learning problem. In Section \ref{sec:nn_arch} the architectures of
 the main networks are shown. In Section \ref{sec:adds} we detailed additional components used on the models and training.
 Finally, Section \ref{sec:baselines} shows the baselines models
@@ -68,7 +68,7 @@ In this work, we propose replacing the traditional feature extractors for a full
 network. The semantic segmentation task consists of assigning a label to every pixel in an image, and therefore
 it implies a fine grained detection of object edges, providing a rich amount of information that is human understandable.
 The output of a semantic segmentation model is a probability distribution over the different classes for each pixel,
-making it usable as a feature map of the image. See figure \ref{fig:segmentation} for an example.
+making it usable as a feature map of the image. See Figure \ref{fig:segmentation} for an example.
 
 We base our models on the PSPNet architecture \cite{pspnet}, since it is one of the highest performing models
 available in the literature. It's design its based on a ResNet50 and a pyramid pooling module, which consists on
@@ -101,7 +101,7 @@ For the calculation of the ranking score, we apply a linear transformation to ev
 $\mathbb{R}^{h \times w}$  and then an MLP with one hidden layer and ReLU activation. The final linear layer
 of the MLP generates a single scalar value representing the perception score.
 
-Is important to note that the features given by  segmentation are  of considerable less dimensionality
+It is important to note that the features given by  segmentation are  of considerable less dimensionality
 than traditional ResNet features
 and only capture the very specific information of which class is each pixel,
 making them  significantly less expressive. For example, given a standard $244 \times 244$ image,
@@ -311,12 +311,12 @@ this model, due to the significantly larger amount of trainable parameters that 
 \subsection{ResNet50 + Self Attention layer + MLP}
 
 A baseline on explainability is also important, since improving it is the key contribution
-of this work. For that we use a similar architecture to attention based explainability
+of this work. For that we use a similar architecture to attention-based explainability
 models from the literature \cite{zhang_interpretable, cordonnier_relationship, bello_attention}, consisting on
 combining a finetuned CNN with self attention layers.
 
 We take the output of ResNet50's \textit{conv\_5c} layers and give it to the attention layer
-defined in section \ref{section:self-attn} and then to a two layer MLP for calculation of the final score.
+defined in Section \ref{section:self-attn} and then to a two layer MLP for calculation of the final score.
 
 \begin{figure}[ht]
 	\begin{center}

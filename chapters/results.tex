@@ -20,7 +20,7 @@ Both ResNet based baseline models achieve an accuracy of \texttildelow 66\% and
 as it was expected, replacing the more expressive CNN features for semantic segmentation,
 caused a significant performance drop, falling to 60.62\% for SegRank and 61.44\%
 for SelfSegRank. The performance is then mostly recovered when combining both approaches,
-reaching 64.41\% on the AttentionSegRank architecture. See table \ref{tab:model_acc}, for the exact accuracy values.
+reaching 64.41\% on the AttentionSegRank architecture. See Table \ref{tab:model_acc}, for the exact accuracy values.
 
 
 \begin{table}[H]
@@ -121,7 +121,7 @@ on all models.
 \section{Visualization results}
 \label{sec:visualization_results}
 
-As was detailed in section \ref{sec:methodology_visualization}, we  derive heatmaps
+As was detailed in Section \ref{sec:methodology_visualization}, we  derive heatmaps
 from the attention weights, which serve as an additional model interpretation
 tool on a per instance level. For example, showing the visualization for all attributes on
 a single image, shows how the models pay attention to different parts of the image for different
@@ -139,7 +139,7 @@ attributes. See figures \ref{fig:segrank_attention}, \ref{fig:vis_sample} for ex
 
 Combining the segmentation with the heatmap allows to see how the attention is distributed
 through the different segmentation classes, both qualitatively and quantitatively, as can
-be seen in figure \ref{fig:object_attention}.
+be seen in Figure \ref{fig:object_attention}.
 
 \begin{figure}[ht]
 	\begin{center}
@@ -153,8 +153,8 @@ be seen in figure \ref{fig:object_attention}.
 	\end{center}
 \end{figure}
 
-Is important to note how the three attention models behave differently for the same image, which can be seen by
-plotting the heatmaps side by side, as it is shown in figure \ref{fig:model_comparison}
+It is important to note how the three attention models behave differently for the same image, which can be seen by
+plotting the heatmaps side by side, as it is shown in Figure \ref{fig:model_comparison}
 
 \begin{figure}[ht]
 	\begin{center}

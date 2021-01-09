@@ -3,7 +3,7 @@ emphasis on the AttentionSegRank architecture due to its better performance
 and explainability. On Section \label{sec:overfit} we will discuss the effects of using semantic segmentation
 on neural network  training. Sections \ref{sec:significance} and \ref{sec:relationship} will show a quantitative analysis between
 segmentation, attention, and the perception quantification. Section four shows the effect of combining
-image features with segmentation. And finally, on section five we will
+image features with segmentation. And finally, on Section five we will
 analyze the implications of this method on model explainability.
 
 \section{Effect of semantic segmentation on learning}
@@ -97,7 +97,7 @@ when quantifying different attributes.
 
 We can also visualize which classes are significant for individual examples, allowing
 for a simple interpretation of results on a per instance basis.
-See figure \ref{fig:ratio} in which the road and sky classes were determined as significant
+See Figure \ref{fig:ratio} in which the road and sky classes were determined as significant
 by the models attention.
 
 \begin{figure}[ht]
@@ -118,14 +118,14 @@ Similarly to previous work \cite{rossetti, zhang_measuring} we analyze how the s
 perception scores. For that, we count the percentage of pixels of each segmentation class
 on all the images of the validation split for each of the perception attributes and measure
 correlation with the perception quantification. We present these results for both
-segmentation and attention percentages on figure \ref{fig:correlations}.
+segmentation and attention percentages on Figure \ref{fig:correlations}.
 
 In all classes correlation is not extremely high, we believe that to be a good result since
 no class should have such a determinant inherence on the perception of an attribute as to
 reach a correlation close to 1 or -1. Attention and segmentation behave similarly, having
 opposite sign only on very rare cases, (e.g: road for the lively attribute) and differing
 only on the magnitude of the correlation most of the time. Comparing with the significance results shown
-on figure \ref{fig:total_sig}, the most significant classes on the dataset are also consistently on
+on Figure \ref{fig:total_sig}, the most significant classes on the dataset are also consistently on
 the top or bottom of the correlation charts, so the high significance comes hand in hand with
 high correlation more often than not.
 
@@ -204,7 +204,7 @@ occasionally for classes with very low correlation magnitude ($< 0.1$).
 Even though some classes have high (or low) correlation is important to note that in no case
 their sole values are enough to determine the final output score, even when filtering by significance.
 Other objects on the images and ResNet features are also necessary to get a more precise
-quantification of the perception. See figure \ref{fig:scatters} where even though the correlation
+quantification of the perception. See Figure \ref{fig:scatters} where even though the correlation
 can be seen clearly, for a single segmentation percentage the scores fall over a large interval.
 
 As we mentioned above, \citeA{zhang_measuring} used different segmentation classes
@@ -238,8 +238,8 @@ Using only segmentation results in a larger bias in significance towards the cla
 common in the dataset, with the least present reaching 0\% significance for some attributes.
 Following that tendency, the correlation order of the classes is mostly kept, but with an
 increase in the correlation magnitude, that is an expected behavior since this model depends on segmentation as
-the sole input. An example of this difference can be seen on figure \ref{fig:correlation_comparison}  or
-by comparing figure \ref{fig:correlation_selfsegrank} and figure \ref{fig:correlations:wealthy}.
+the sole input. An example of this difference can be seen on Figure \ref{fig:correlation_comparison}  or
+by comparing Figure \ref{fig:correlation_selfsegrank} and Figure \ref{fig:correlations:wealthy}.
 
 Another interesting behavior of the segmentation only architectures is
 that when a single segmentation class takes a large portion of an image,
@@ -314,7 +314,7 @@ attention of each pixel belonging
 to a class through out the whole dataset, and use them to
 generate visualizations for each class and attribute.
 This visualizations allow  for an spatial analysis for
-different attributes, for example on figure \ref{fig:average_vegetations},
+different attributes, for example on Figure \ref{fig:average_vegetations},
 there is a clear distinction between some attributes attending the top parts
 and others the bottom parts of image, this makes sense considering the vegetation
 class includes both trees (upper half) and grass and bushes (bottom half) which
@@ -351,7 +351,7 @@ is consistent with the previous literature \cite{rossetti, zhang_measuring}.
 \label{fig:average_vegetations}
 \end{figure}
 
-Another interesting case to analyze is the road class, shown in figure \ref{fig:average_road}.
+Another interesting case to analyze is the road class, shown in Figure \ref{fig:average_road}.
 As expected the average attentions show a triangular shape on the bottom of the images, which
 is how the road is shown in most images, but the boring and beautiful attributes put more attention
 on the top of the images, which only happens on images that are mostly road, such as tunnels and
