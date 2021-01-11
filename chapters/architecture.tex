@@ -52,7 +52,7 @@ state-of-the-art techniques from the deep learning literature, semantic segmenta
 and attention mechanisms, to design three novel architectures that present a significant
 improvement in explainability over traditional blackbox CNNs. We describe these architectures
 in the following sub sections, ordered by model complexity. Is important to note that
-for learning to rank on the Placepulse dataset,
+for learning to rank on the PlacePulse dataset,
 two forward passes of the ranking  network are required for each data instance (one for each image) and both scores are used
 for calculation of the loss. See section \ref{section:loss} for  details.
 
@@ -219,12 +219,12 @@ that keeps the  interpretability of the segmentation objects independently of th
 \label{sec:adds}
 \subsection{Loss function} \label{section:loss}
 The loss function for this task must account for the pairwise structure of the dataset,
-and should represent the cost of breaking restrictions given by equations
+and should represent the cost of breaking restrictions given by Equations
 \ref{eq:constraints} and \ref{eq:constraints_ties}. For \ref{eq:constraints} we use
 a hinge loss similar to the one proposed by \citeA{hidalgo_placepulse}:
 
 \begin{equation}
-	L_r(x_i,x_j,y | \Theta) = \max(0, -y(f_\Theta(x_i) - f_\Theta(x_j)) + m_r)
+	L_r(x_1,x_1,y \mid \Theta) = \max(0, -y(f_\Theta(x_1) - f_\Theta(x_2)) + m_r)
 	\label{eq:r_loss}
 \end{equation}
 
@@ -234,16 +234,16 @@ score to the image winner of the vote. Based on the work by \citeA{doughty_loss}
 be used for training. According with equation \ref{eq:constraints_ties} we define:
 
 \begin{equation}
-	L_t(x_i,x_j | \Theta) = \max(0, |f_\Theta(x_i) - f_\Theta(x_j)| - m_t)
+	L_t(x_1,x_2 \mid \Theta) = \max(0, |f_\Theta(x_1) - f_\Theta(x_2)| - m_t)
 	\label{eq:t_loss}
 \end{equation}
 
 Where $m_t$ is also an hyperparameter. Finally, the complete loss function is defined as:
 
 \begin{equation}
-	L(x_i,x_j,y | \Theta) =\left\{\begin{matrix}
-		L_r(x_i,x_j,y)&\text{ if } y \in \{-1,1\} \\
-		L_t(x_i,x_j)&\text{ if } y=0
+	L(x_1,x_2,y \mid \Theta) =\left\{\begin{matrix}
+		L_r(x_1,x_2,y)&\text{ if } y \in \{-1,1\} \\
+		L_t(x_1,x_2)&\text{ if } y=0
 	\end{matrix}\right.
 \end{equation}
 
@@ -251,7 +251,7 @@ In practice we take the mean loss over the batch examples and we set $m_r=m_t=1$
 
 \subsection{Semantic Dropout}
 It's important to note that the semantic segmentation model trained on cityscapes,
-presents an unavoidable drop in segmentation performance when applied on placepulse
+presents an unavoidable drop in segmentation performance when applied on PlacePulse
 due to domain shift. Errors in the segmentation can produce  significant problems
 in the final perception quantification and can also cause confusing
 attention heatmaps due to errors in the object edges.
@@ -261,12 +261,16 @@ weights highly biased towards specific segmentation classes, which is highly und
 both for explainability and model generalization.
 
 We solve these problems by implementing what we call Semantic Dropout, similar to traditional Dropout \cite{srivastava_dropout},
-but instead of dropping a single neuron with probability $p$, Semantic Dropout drops the
-probabilities of an entire segmentation class, inducing artificial errors
+but instead of dropping a single neuron with probability $p$, Semantic Dropout sets the
+probabilities of an entire segmentation class to 0, inducing artificial errors
 during training and preventing the network from becoming too sensitive to
-segmentation errors while also reducing the bias in attention weights. Mathematically
+segmentation errors while also reducing the bias in attention weights.
+This effect can be seen on Figure \ref{fig:dropout}, which shows how the attention weights are less biased towards one class and therefore
+less affected by the errors in segmentation.
+Mathematically
 this technique is equivalent to the spatial dropout proposed in \citeA{tompson_efficient},
 but applied to segmentation probabilities instead to convolutional kernels.
+
 
 \begin{figure}[!htb]
 	\minipage{0.25\textwidth}
@@ -284,8 +288,6 @@ but applied to segmentation probabilities instead to convolutional kernels.
 	\caption[Effect of Semantic Dropout]{
 		Effect of Semantic Dropout. From left to right: original image, semantic segmentation
 		and the outputs of the self attention model trained, without and with semantic dropout.
-		The example shows how the attention weights are less biased towards one class and therefore
-		less affected by the errors in segmentation.
 	}
 	\label{fig:dropout}
 \end{figure}
