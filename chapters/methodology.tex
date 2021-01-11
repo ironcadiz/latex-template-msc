@@ -46,12 +46,13 @@ See Table \ref{tab:hyperparams} for details on the training hyperparameters.
 For visualization we generate both segmentation and attention images, in this section
 we will explain how we generate the attention visualizations. See Appendix \ref{sec:seg_colors} for segmentation.
 
-We generate the attention images by first extracting the weight matrix $A$ from the softmax operation
-of the attention layer (see equation \ref{eq:attention}). $A$  is a square matrix of size
-$|A|=(hw)^2$ with $h$ and $w$ the height and width of the layer's input, since it represents
-the importance of each pixel for each output of the layer. To reduce it to a single weight per pixel
-we take the column wise (opposed dimension of the softmax)  mean of $A$ and
-then reshape it to the original image size, obtaining an attention map $A' \in \mathbb{R}_{[0,1]}^{h \times w}$.
+Recall that our attention matrix $A$ is of dimensions $(hw)\times(hw)$, meaning that we
+have for each pixel,the attention that this pixel gives to every other
+pixel. To reduce the matrix to a single value per pixel $p$, we average the attention
+given by every pixel to $p$. This can be done by
+simply taking the column wise mean of $A$, which results in a vector with $hw$ components.
+Finally, we reshape this vector to the original input size,
+obtaining an attention map $A' \in \mathbb{R}_{[0,1]}^{h \times w}$.
 
 Since in practice, $h$ and $w$ are too small to produce a good quality visualization we resize $A'$ with
 bilinear interpolation to the standard size of $224 \times 224$. Finally each image is min max normalized to be in
