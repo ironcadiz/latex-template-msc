@@ -57,7 +57,7 @@ obtaining an attention map $A' \in \mathbb{R}_{[0,1]}^{h \times w}$.
 Since in practice, $h$ and $w$ are too small to produce a good quality visualization we resize $A'$ with
 bilinear interpolation to the standard size of $224 \times 224$. Finally each image is min max normalized to be in
 the $[0, 255]$ interval in order to apply the color gradient that generates the final heatmap.
-For sample results see section \ref{sec:visualization_results}.
+For sample results see Section \ref{sec:visualization_results}.
 
 The heatmaps serve as an additional model interpretation
 tool on a per instance level. For example, showing the visualization for all attributes on

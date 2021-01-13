@@ -12,7 +12,7 @@ used for the ablation study of both performance and explainability.
 Following a formulation similar to \citeA{hidalgo_placepulse}, each attribute $A$ in the PP 2.0
 consists of a set $I_A$ of images and a set $P_A$ of votes for those images.
 Each image in $I_A$ is a tensor $x \in \mathbb{R}^{h \times w \times 3}$ where $h$ and $w$ are the height and width respectively.
-Each vote in $P_A$ is a triple $(x_1,x_2,y)$ where $x_1$ and $zx_2$ are images in $I_A$ and $y\in \{1,0,-1\}$.
+Each vote in $P_A$ is a triple $(x_1,x_2,y)$ where $x_1$ and $x_2$ are images in $I_A$ and $y\in \{1,0,-1\}$.
 A triple $(x_1,x_2,y)\in P_A$ represents a comparison where $y=1$ states a preference of $x_1$ over $x_2$, and $y=-1$
 represents a preference of $x_2$ over $x_1$. The value $y=0$ represents a tie.
 
@@ -54,7 +54,7 @@ improvement in explainability over traditional blackbox CNNs. We describe these 
 in the following sub sections, ordered by model complexity. Is important to note that
 for learning to rank on the PlacePulse dataset,
 two forward passes of the ranking  network are required for each data instance (one for each image) and both scores are used
-for calculation of the loss. See section \ref{section:loss} for  details.
+for calculation of the loss. See Section \ref{section:loss} for  details.
 
 
 \subsection{SegRank base.}
